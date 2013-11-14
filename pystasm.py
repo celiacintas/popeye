@@ -17,13 +17,12 @@ class STASM:
 	def s_search_single(self, filename, numberLandmarks=77, pathToData="Dependencies/Data"):
 		self.stasm.stasm_search_single.restypes = [ctypes.c_int]
 		self.stasm.stasm_search_single.argtypes = [ctypes.POINTER(ctypes.c_int), 
-												   ctypes.POINTER(ctypes.c_float),
-												   ctypes.POINTER(ctypes.c_char),
-												   ctypes.c_int,
-												   ctypes.c_int,
-												   ctypes.POINTER(ctypes.c_char),
-												   ctypes.POINTER(ctypes.c_char),
-												   ]
+							   ctypes.POINTER(ctypes.c_float),
+							   ctypes.POINTER(ctypes.c_char),
+							   ctypes.c_int,
+							   ctypes.c_int,
+							   ctypes.POINTER(ctypes.c_char),
+							   ctypes.POINTER(ctypes.c_char)]
 		foundface = ctypes.c_int()
 		pointer_foundface = ctypes.pointer(foundface)
 		xys = 2*numberLandmarks
