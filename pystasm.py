@@ -3,21 +3,20 @@
 
 import ctypes
 import numpy as np
-#import cv2
-import matplotlib.pyplot as plt
-from skimage.io import imread
+import skimage.io as io
 from skimage import img_as_ubyte
 
 
 class STASM:
 	def __init__(self):
 		self.stasm = ctypes.cdll.LoadLibrary("Dependencies/libstasm.so")
+		io.use_plugin('pil')
 		
 	def s_init(self, pathToData="Dependencies/Data", debug = 0):
 		self.stasm.stasm_init( pathToData, debug)
 
 	def s_search_single(self, fileName, numberLandmarks=77, pathToData="Dependencies/Data"):
-		image = img_as_ubyte(imread(fileName, as_grey=True))
+		image = img_as_ubyte(io.imread(fileName, as_grey=True))
 
 		self.stasm.stasm_search_single.restypes = [ctypes.c_int]
 		self.stasm.stasm_search_single.argtypes = [ctypes.POINTER(ctypes.c_int), 
@@ -60,7 +59,7 @@ class STASM:
 
 #-----------------------------------------------------------------
 def main():
-	myStasm = STASM("/home/celia/Chile/test.JPG")
+	myStasm = STASM()
 	myStasm.s_init()
 	landmarks_found = myStasm.s_search_single("/home/celia/Chile/test.JPG")
 	print landmarks_found

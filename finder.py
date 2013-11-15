@@ -5,7 +5,6 @@ import os
 import re
 import pystasm
 
-
 class Finder():
 	def __init__(self, pathFile):
 		self.fileNames = [os.path.join(pathFile,f) for f in os.listdir(pathFile) if re.match(r'.*\.JPG', f)]
@@ -16,6 +15,7 @@ class Finder():
 
 	def findLandmarks(self, numberLandmarks=77):
 		return map(self.myStasm.s_search_single, self.fileNames)
+
 
 def main():
 	myFinder = Finder("/home/celia/Test/")
