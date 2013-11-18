@@ -4,24 +4,34 @@
 import os
 import re
 import pystasm
+import skimage.io as io
+from skimage.draw import circle
+from skimage import img_as_ubyte
 
 class Finder():
 	def __init__(self, pathFile):
-		self.fileNames = [os.path.join(pathFile,f) for f in os.listdir(pathFile) if re.match(r'.*\.JPG', f)]
+		#self.fileNames = [os.path.join(pathFile,f) for f in os.listdir(pathFile) if re.match(r'.*\.JPG', f)]
+		self.fileNames = pathFile
 		self.myStasm = pystasm.STASM()
 
 	def findFace(self):
 		pass
 
 	def findLandmarks(self, numberLandmarks=77):
-		return map(self.myStasm.s_search_single, self.fileNames)
+		self.landmarks = map(self.myStasm.s_search_single, self.fileNames)
 
+	def drawLandmarks(self):
+		images = map(lambda f: img_as_ubyte(io.imread(f)), self.fileNames)
+		for i in range(len(images)):
+			for l in range(len(self.landmarks[0])):
+				rr, cc = circle(self.landmarks[i][l][1], self.landmarks[i][l][0], 20)
+				images[i][rr, cc] = 1
+		return images
 
 def main():
-	myFinder = Finder("/home/celia/Test/")
-	landmarks = myFinder.findLandmarks()
-	print landmarks
-
-
+	myFinder = Finder(["/home/celia/Chile/test.JPG"])
+	myFinder.findLandmarks()
+	myFinder.drawLandmarks()
+	
 if __name__ == '__main__':
 	main()
