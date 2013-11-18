@@ -1,6 +1,9 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
+# ctypes implementation for STASM library 
+# http://www.milbo.users.sonic.net/stasm/
+
 import ctypes
 import numpy as np
 import skimage.io as io
@@ -36,7 +39,7 @@ class STASM:
 		ctypes.c_int(image.shape[1]), ctypes.c_int(image.shape[0]),
 		fileName, "Dependencies/Data")
 		points = np.array(list(landmarks)).reshape((77,2))
-		
+
 		return points
 
 	def s_open_image(self):
