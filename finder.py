@@ -21,10 +21,10 @@ class Finder():
 		self.landmarks = map(self.myStasm.s_search_single, self.fileNames)
 
 	def drawLandmarks(self):
-		images = map(lambda f: img_as_ubyte(io.imread(f)), self.fileNames)
+		images = map(lambda f: (io.imread(f)), self.fileNames)
 		for i in range(len(images)):
 			for l in range(len(self.landmarks[0])):
-				rr, cc = circle(self.landmarks[i][l][1], self.landmarks[i][l][0], 20)
+				rr, cc = circle(self.landmarks[i][l][1], self.landmarks[i][l][0], 15)
 				images[i][rr, cc] = 1
 		return images
 

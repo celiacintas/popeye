@@ -1,4 +1,4 @@
-#! /usr/bin/python2 
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 from PyQt4 import QtGui, QtCore
@@ -15,8 +15,7 @@ class MyButton(QtGui.QPushButton):
         self.setFlat(True)
         self.setCheckable(False)
         self.setStyleSheet("background-image:url(t.jpg);\n border-style: none;\n")
-        tool = "<html><head/><body><p><span style=\" color:#ffffff;\">"+ tooltip + "</span></p></body></html>"
-        self.setToolTip(QtGui.QApplication.translate("MainWindow", tool, None, QtGui.QApplication.UnicodeUTF8))
+        self.setToolTip(QtGui.QApplication.translate("MainWindow", tooltip, None, QtGui.QApplication.UnicodeUTF8))
      #def mousePressEvent(self, event):
      #  """ """
        

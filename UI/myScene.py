@@ -41,12 +41,13 @@ class Scene(QtGui.QGraphicsScene):
         proxyBotonEdit.setWidget(myButtonEdit)
         proxyBotonNext.setWidget(myButtonNext)
         proxyBotonPrev.setWidget(myButtonPrev)
-        proxyBotonNext.setPos(self.width() - 45, self.height())
-        proxyBotonEdit.setPos(self.width() - 110, self.height())
-        proxyBotonPrev.setPos(self.width() - 175, self.height())
+        proxyBotonNext.setPos(self.width() - 20, self.height())
+        proxyBotonEdit.setPos(self.width() - 85, self.height())
+        proxyBotonPrev.setPos(self.width() - 150, self.height())
         self.addItem(proxyBotonNext)
         self.addItem(proxyBotonEdit)
         self.addItem(proxyBotonPrev)
+
 
 
     def mousePressEvent(self, event):

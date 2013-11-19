@@ -112,7 +112,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>Icons/icono.png</normaloff>Icons/icono.png</iconset>
+    <normaloff>../Icons/icono.png</normaloff>../Icons/icono.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">border-style: none;
@@ -157,6 +157,15 @@ background-position: top right;
            </color>
           </brush>
          </colorrole>
+         <colorrole role="Button">
+          <brush brushstyle="SolidPattern">
+           <color alpha="0">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
@@ -172,6 +181,24 @@ background-position: top right;
             <red>255</red>
             <green>255</green>
             <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="NoBrush">
+           <color alpha="255">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="0">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
            </color>
           </brush>
          </colorrole>
@@ -186,6 +213,15 @@ background-position: top right;
            </color>
           </brush>
          </colorrole>
+         <colorrole role="Button">
+          <brush brushstyle="SolidPattern">
+           <color alpha="0">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
@@ -201,6 +237,24 @@ background-position: top right;
             <red>255</red>
             <green>255</green>
             <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="NoBrush">
+           <color alpha="255">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="0">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
            </color>
           </brush>
          </colorrole>
@@ -215,6 +269,15 @@ background-position: top right;
            </color>
           </brush>
          </colorrole>
+         <colorrole role="Button">
+          <brush brushstyle="SolidPattern">
+           <color alpha="0">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
          <colorrole role="Text">
           <brush brushstyle="SolidPattern">
            <color alpha="255">
@@ -233,11 +296,32 @@ background-position: top right;
            </color>
           </brush>
          </colorrole>
+         <colorrole role="Base">
+          <brush brushstyle="NoBrush">
+           <color alpha="255">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="0">
+            <red>0</red>
+            <green>0</green>
+            <blue>0</blue>
+           </color>
+          </brush>
+         </colorrole>
         </disabled>
        </palette>
       </property>
+      <property name="styleSheet">
+       <string notr="true">background: transparent; border: transparent</string>
+      </property>
       <property name="backgroundBrush">
-       <brush brushstyle="Dense6Pattern">
+       <brush brushstyle="SolidPattern">
         <color alpha="255">
          <red>0</red>
          <green>0</green>
@@ -266,7 +350,7 @@ background-position: top right;
          </property>
          <property name="icon">
           <iconset>
-           <normalon>Icons/images.png</normalon>
+           <normalon>../Icons/images.png</normalon>
           </iconset>
          </property>
          <property name="iconSize">
@@ -287,7 +371,7 @@ background-position: top right;
          </property>
          <property name="icon">
           <iconset>
-           <normalon>Icons/preferences.png</normalon>
+           <normalon>../Icons/preferences.png</normalon>
           </iconset>
          </property>
          <property name="iconSize">
@@ -308,7 +392,7 @@ background-position: top right;
          </property>
          <property name="icon">
           <iconset>
-           <normalon>Icons/run.png</normalon>
+           <normalon>../Icons/run.png</normalon>
           </iconset>
          </property>
          <property name="iconSize">
@@ -329,7 +413,7 @@ background-position: top right;
          </property>
          <property name="icon">
           <iconset>
-           <normalon>Icons/others.png</normalon>
+           <normalon>../Icons/others.png</normalon>
           </iconset>
          </property>
          <property name="iconSize">
@@ -363,7 +447,7 @@ background-position: top right;
          </property>
          <property name="icon">
           <iconset>
-           <normalon>Icons/info.png</normalon>
+           <normalon>../Icons/info.png</normalon>
           </iconset>
          </property>
          <property name="iconSize">
@@ -384,7 +468,7 @@ background-position: top right;
          </property>
          <property name="icon">
           <iconset>
-           <normalon>Icons/exit.png</normalon>
+           <normalon>../Icons/exit.png</normalon>
           </iconset>
          </property>
          <property name="iconSize">
@@ -408,6 +492,173 @@ background-position: top right;
     </sizepolicy>
    </property>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>809</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuLoad_Images">
+     <property name="title">
+      <string>Load Images</string>
+     </property>
+     <addaction name="actionBatch_Mode"/>
+     <addaction name="actionInteractive_Mode"/>
+    </widget>
+    <widget class="QMenu" name="menuExport_to">
+     <property name="title">
+      <string>Export to ..</string>
+     </property>
+     <addaction name="actionTPS_file"/>
+     <addaction name="actionMorphoJ_file"/>
+     <addaction name="actionCSV"/>
+     <addaction name="actionXls"/>
+     <addaction name="actionTxt"/>
+    </widget>
+    <addaction name="actionNew_Project"/>
+    <addaction name="actionLoad_Project"/>
+    <addaction name="actionSave_Project"/>
+    <addaction name="separator"/>
+    <addaction name="menuLoad_Images"/>
+    <addaction name="menuExport_to"/>
+   </widget>
+   <widget class="QMenu" name="menuModules">
+    <property name="title">
+     <string>Modules</string>
+    </property>
+    <addaction name="actionAge_Estimation"/>
+    <addaction name="actionSex_Estimation"/>
+    <addaction name="actionEye_Color_Estimation"/>
+    <addaction name="actionSkin_Color_Estimation"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionManual_Landmarking"/>
+    <addaction name="actionReport_Generation"/>
+    <addaction name="actionLandmark_Configuration"/>
+    <addaction name="action3D_Reconstruction"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+    <addaction name="actionDocumentation"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuModules"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionNew_Project">
+   <property name="text">
+    <string>New Project</string>
+   </property>
+  </action>
+  <action name="actionLoad_Project">
+   <property name="text">
+    <string>Load Project</string>
+   </property>
+  </action>
+  <action name="actionSave_Project">
+   <property name="text">
+    <string>Save Project</string>
+   </property>
+  </action>
+  <action name="actionBatch_Mode">
+   <property name="text">
+    <string>Batch Mode</string>
+   </property>
+  </action>
+  <action name="actionInteractive_Mode">
+   <property name="text">
+    <string>Interactive Mode</string>
+   </property>
+  </action>
+  <action name="actionTPS_file">
+   <property name="text">
+    <string>TPS file</string>
+   </property>
+  </action>
+  <action name="actionMorphoJ_file">
+   <property name="text">
+    <string>MorphoJ file</string>
+   </property>
+  </action>
+  <action name="actionCSV">
+   <property name="text">
+    <string>CVS</string>
+   </property>
+  </action>
+  <action name="actionXls">
+   <property name="text">
+    <string>XLS</string>
+   </property>
+  </action>
+  <action name="actionTxt">
+   <property name="text">
+    <string>TXT</string>
+   </property>
+  </action>
+  <action name="actionAge_Estimation">
+   <property name="text">
+    <string>Age Estimation</string>
+   </property>
+  </action>
+  <action name="actionSex_Estimation">
+   <property name="text">
+    <string>Sex Estimation</string>
+   </property>
+  </action>
+  <action name="actionEye_Color_Estimation">
+   <property name="text">
+    <string>Eye Color Estimation</string>
+   </property>
+  </action>
+  <action name="actionSkin_Color_Estimation">
+   <property name="text">
+    <string>Skin Color Estimation</string>
+   </property>
+  </action>
+  <action name="actionManual_Landmarking">
+   <property name="text">
+    <string>Manual Landmarking</string>
+   </property>
+  </action>
+  <action name="actionReport_Generation">
+   <property name="text">
+    <string>Report Generation</string>
+   </property>
+  </action>
+  <action name="actionLandmark_Configuration">
+   <property name="text">
+    <string>Landmark Configuration</string>
+   </property>
+  </action>
+  <action name="action3D_Reconstruction">
+   <property name="text">
+    <string>3D Reconstruction</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionDocumentation">
+   <property name="text">
+    <string>Documentation</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
