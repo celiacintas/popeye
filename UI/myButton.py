@@ -16,6 +16,4 @@ class MyButton(QtGui.QPushButton):
         self.setCheckable(False)
         self.setStyleSheet("background-image:url(t.jpg);\n border-style: none;\n")
         self.setToolTip(QtGui.QApplication.translate("MainWindow", tooltip, None, QtGui.QApplication.UnicodeUTF8))
-     #def mousePressEvent(self, event):
-     #  """ """
-       
+     

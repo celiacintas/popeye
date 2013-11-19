@@ -1,9 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-#! /usr/bin/python2
-# -*- coding: utf-8 -*-
-
 from PyQt4 import QtGui, QtCore
 
 
@@ -24,7 +21,7 @@ class okButton(QtGui.QPushButton):
         #esta funcion tiene que limpiar de la scene los items
         # que estan invisibles
 
-#TODO agregar botones de listo aca
+        #TODO agregar botones de listo aca
 
 
 class Scene(QtGui.QGraphicsScene):
@@ -61,4 +58,4 @@ class Scene(QtGui.QGraphicsScene):
         item = self.itemAt(event.scenePos())
         self.sendEvent(item, event)
 
-######################################################
+
