@@ -14,8 +14,8 @@ from UI.dialogOptions import DialogOptions
 from UI.myButton import MyButton
 from UI.myScene import Scene
 from UI.table import Table
-from Dependencies.qimage2ndarray import toQImage
-import time
+from Utils.qimage2ndarray import toQImage
+from Utils.export import SaveFile
 
 
 
@@ -140,7 +140,12 @@ class Main_Window(QtGui.QMainWindow):
             self.ui.myButtonPrev.setEnabled(True)
         
     def save(self):
-        pass
+        dialog = QtGui.QFileDialog()
+        saveFileName = dialog.getSaveFileName(self, "Save File",
+                                      os.getcwd(),
+                                      "Files (*.txt *.tps *.xls *.cvs)")
+        mySaveFile = SaveFile(saveFileName, self.myFinder.landmarks)
+        mySaveFile.save()
 
     def drawLandmarks(self):
             self.myTable = Table(range(1, len(self.myFinder.landmarks[self.count]) + 1), ['x', 'y'])
