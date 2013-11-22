@@ -92,16 +92,20 @@ class Main_Window(QtGui.QMainWindow):
             self.numberOfLandmarks = [i for i in range(self.landn)]
         self.ui.pushButton_3.setEnabled(True)
         
-
-    def run(self):
-        #TODO clean this
+    def removeFromScene(self):
         items = self.ui.scene.items()
         for i in items:
+            if isinstance(i, QtGui.QGraphicsProxyWidget):
+                i.setVisible(False)
             if isinstance(i, PixmapItem) and not i.isVisible():
                 self.photosNames.remove(i.path)
-            elif isinstance(i, PixmapItem):
+            if  not isinstance(i, QtGui.QGraphicsProxyWidget):
+                print i
                 self.ui.scene.removeItem(i)
-        
+            
+    def run(self):
+        #TODO clean this
+        self.removeFromScene()        
         self.myFinder = Finder(self.photosNames)
         QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
         self.myFinder.findLandmarks()
@@ -114,21 +118,21 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.myButtonEdit.setVisible(True)
         self.ui.myButtonNext.setVisible(True)
         self.ui.myButtonPrev.setEnabled(False)
-            
+        self.ui.myButtonNext.setEnabled(True)
+           
         self.ui.pushButton_4.setEnabled(True)
 
     def prev(self):
-        if  0 < self.count <= len(self.images):
+        if  0 < self.count < len(self.images):
             self.count = self.count - 1
             self.drawLandmarks()
         else:
             self.ui.myButtonPrev.setEnabled(False)
-
         if not self.ui.myButtonNext.isEnabled():
             self.ui.myButtonNext.setEnabled(True)
 
     def next(self):
-        if len(self.images)-1 > self.count:
+        if 0 <= self.count < len(self.images)-1:
             self.count = self.count + 1
             self.drawLandmarks()
         else:
@@ -178,6 +182,7 @@ class Main_Window(QtGui.QMainWindow):
     def drawPeople(self, fileNames):
         """Show in the scene the photos."""
         #TODO fix this
+        self.removeFromScene()
         posx = posy = 0
         for i in fileNames:
             pix = QtGui.QPixmap(i)
