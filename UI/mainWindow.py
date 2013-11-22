@@ -97,9 +97,7 @@ class Main_Window(QtGui.QMainWindow):
         else:
             self.numberOfLandmarks = [i for i in range(77)]
         self.ui.pushButton_3.setEnabled(True)
-        print self.numberOfLandmarks
-        #TODO implement feature for selection
-
+        
 
     def run(self):
         #TODO clean this
