@@ -151,8 +151,10 @@ class Main_Window(QtGui.QMainWindow):
         mySaveFile.save()
 
     def drawLandmarks(self):
-            self.myTable = Table(range(1, len(self.myFinder.landmarks[self.count]) + 1), ['x', 'y'])
-            self.loadModel(self.myFinder.landmarks[self.count])
+            self.myTable = Table(self.numberOfLandmarks, ['x', 'y'])
+            myLandmarks = self.myFinder.landmarks[self.count]
+            myLandmarks2Table = [myLandmarks[i] for i in self.numberOfLandmarks]
+            self.loadModel(myLandmarks2Table)
             proxyTabla = QtGui.QGraphicsProxyWidget()
             proxyTabla.setWidget(self.myTable)
             proxyTabla.setPos(320, 0)
