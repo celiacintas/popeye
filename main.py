@@ -19,8 +19,7 @@ def main():
     window = Main_Window()
     window.move(300, 100)
     window.show()
-    splash.finish(window)
-    window.bienvenida()
+
 
     sys.exit(app.exec_())
 

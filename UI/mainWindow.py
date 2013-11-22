@@ -53,14 +53,8 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.myButtonNext.setVisible(False)
         self.ui.graphicsView.show()
         self.photosNames = list()
+        self.landn = 77
         
-
-    def bienvenida(self):
-        """benbenute"""
-        text = u"""<font color=black> Welcome to PopEye!If this is your
-        first time see this <a href="www.youtube.com/watch?v=Al9EgCJ6LHY">
-        video</a>.</font>"""
-        return QtGui.QMessageBox.about(self, "Welcome to PopEye", text)
 
     def showQuit(self):
         """Exit dialog."""
@@ -95,7 +89,7 @@ class Main_Window(QtGui.QMainWindow):
         if options.ui.listWidget.selectedItems():
             self.numberOfLandmarks = [int(x.text()) for x in options.ui.listWidget.selectedItems()]
         else:
-            self.numberOfLandmarks = [i for i in range(77)]
+            self.numberOfLandmarks = [i for i in range(self.landn)]
         self.ui.pushButton_3.setEnabled(True)
         
 
@@ -153,6 +147,7 @@ class Main_Window(QtGui.QMainWindow):
     def drawLandmarks(self):
             self.myTable = Table(self.numberOfLandmarks, ['x', 'y'])
             myLandmarks = self.myFinder.landmarks[self.count]
+            print myLandmarks
             myLandmarks2Table = [myLandmarks[i] for i in self.numberOfLandmarks]
             self.loadModel(myLandmarks2Table)
             proxyTabla = QtGui.QGraphicsProxyWidget()
