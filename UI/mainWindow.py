@@ -92,9 +92,14 @@ class Main_Window(QtGui.QMainWindow):
     def showPreferences(self):
         """ Dialog for select the anatomic parts to evaluate."""
         options = DialogOptions()
-        landmarks = [int(x.text()) for x in options.ui.listWidget.selectedItems()]
+        if options.ui.listWidget.selectedItems():
+            self.numberOfLandmarks = [int(x.text()) for x in options.ui.listWidget.selectedItems()]
+        else:
+            self.numberOfLandmarks = [i for i in range(77)]
         self.ui.pushButton_3.setEnabled(True)
+        print self.numberOfLandmarks
         #TODO implement feature for selection
+
 
     def run(self):
         #TODO clean this
@@ -109,7 +114,7 @@ class Main_Window(QtGui.QMainWindow):
         QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
         self.myFinder.findLandmarks()
         QtGui.QApplication.restoreOverrideCursor()
-        self.images = self.myFinder.drawLandmarks()
+        self.images = self.myFinder.drawLandmarks(self.numberOfLandmarks)
         self.count = 0
         self.drawLandmarks()
 
