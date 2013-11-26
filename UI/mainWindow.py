@@ -75,6 +75,8 @@ class Main_Window(QtGui.QMainWindow):
 
     def showFileDialog(self):
         """ Face loading dialog."""
+        self.myFinder = None
+        self.ui.pushButton_2.setEnabled(False)
         dialog = QtGui.QFileDialog()
         outFileNames = dialog.getOpenFileNames(self, "Open Image",
                                       os.getcwd(),
@@ -85,6 +87,7 @@ class Main_Window(QtGui.QMainWindow):
 
     def showPreferences(self):
         """ Dialog for select the anatomic parts to evaluate."""
+        self.ui.pushButton_3.setEnabled(False)
         options = DialogOptions()
         if options.ui.listWidget.selectedItems():
             self.numberOfLandmarks = [int(x.text()) for x in options.ui.listWidget.selectedItems()]
@@ -103,14 +106,17 @@ class Main_Window(QtGui.QMainWindow):
                 self.ui.scene.removeItem(i)
             
     def run(self):
-        #TODO clean this
-        self.removeFromScene()        
-        self.myFinder = Finder(self.photosNames)
-        QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
-        self.myFinder.findLandmarks()
-        QtGui.QApplication.restoreOverrideCursor()
+        if not self.myFinder: 
+            #TODO clean this
+            self.removeFromScene()        
+            self.myFinder = Finder(self.photosNames)
+            QtGui.QApplication.setOverrideCursor(QtGui.QCursor(QtCore.Qt.WaitCursor))
+            self.myFinder.findLandmarks()
+            QtGui.QApplication.restoreOverrideCursor()
+
         self.images = self.myFinder.drawLandmarks(self.numberOfLandmarks)
         self.count = 0
+
         self.drawLandmarks()
 
         self.ui.myButtonPrev.setVisible(True) 
