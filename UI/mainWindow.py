@@ -100,7 +100,6 @@ class Main_Window(QtGui.QMainWindow):
             if isinstance(i, PixmapItem) and not i.isVisible():
                 self.photosNames.remove(i.path)
             if  not isinstance(i, QtGui.QGraphicsProxyWidget):
-                print i
                 self.ui.scene.removeItem(i)
             
     def run(self):
@@ -151,7 +150,6 @@ class Main_Window(QtGui.QMainWindow):
     def drawLandmarks(self):
             self.myTable = Table(self.numberOfLandmarks, ['x', 'y'])
             myLandmarks = self.myFinder.landmarks[self.count]
-            print myLandmarks
             myLandmarks2Table = [myLandmarks[i] for i in self.numberOfLandmarks]
             self.loadModel(myLandmarks2Table)
             proxyTabla = QtGui.QGraphicsProxyWidget()
@@ -160,8 +158,7 @@ class Main_Window(QtGui.QMainWindow):
             
             qitmp = toQImage(self.images[self.count])
             pix = QtGui.QPixmap(QtGui.QPixmap.fromImage(qitmp))
-            sca = PixmapItem(pix.scaledToWidth(300), None)
-            
+            sca = PixmapItem(pix.scaledToWidth(310), None)
             self.ui.scene.addItem(sca)
             self.ui.scene.addItem(proxyTabla)
 
