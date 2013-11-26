@@ -9,7 +9,7 @@ class Table(QtGui.QTableView):
     def __init__(self, vHead, hHead, *args, **kwargs):
         QtGui.QTableView.__init__(self, *args, **kwargs)
         self.setModel(MyModel(vHead, hHead, len(vHead), len(hHead)))
-        #self.setFixedSize(230, 375)
+        self.setFixedSize(230, 375)
         self.adjustSize()
         #self.setStyleSheet("background-image:url(t.jpg);")
 
