@@ -7,6 +7,7 @@ import pystasm
 import skimage.io as io
 from skimage.draw import circle
 from skimage import img_as_ubyte
+import numpy as np
 
 class Finder():
 	def __init__(self, pathFile):
@@ -18,7 +19,8 @@ class Finder():
 		pass
 
 	def findLandmarks(self, numberLandmarks=77):
-		self.landmarks = map(self.myStasm.s_search_single, self.fileNames)
+		self.landmarks = np.array(map(self.myStasm.s_search_single, self.fileNames))
+
 
 	def drawLandmarks(self, posLandmarks):
 		images = map(lambda f: (io.imread(f)), self.fileNames)

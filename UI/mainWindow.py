@@ -150,14 +150,14 @@ class Main_Window(QtGui.QMainWindow):
         saveFileName = dialog.getSaveFileName(self, "Save File",
                                       os.getcwd(),
                                       "Files (*.txt *.tps *.xls *.cvs)")
-        mySaveFile = SaveFile(saveFileName, self.myFinder.landmarks)
+        mySaveFile = SaveFile(saveFileName, self.myFinder.landmarks, self.numberOfLandmarks)
         mySaveFile.save()
 
     def drawLandmarks(self):
             self.myTable = Table(self.numberOfLandmarks, ['x', 'y'])
             myLandmarks = self.myFinder.landmarks[self.count]
-            myLandmarks2Table = [myLandmarks[i] for i in self.numberOfLandmarks]
-            self.loadModel(myLandmarks2Table)
+            myFilterLandmarks = [myLandmarks[i] for i in self.numberOfLandmarks]
+            self.loadModel(myFilterLandmarks)
             proxyTabla = QtGui.QGraphicsProxyWidget()
             proxyTabla.setWidget(self.myTable)
             proxyTabla.setPos(320, 0)
