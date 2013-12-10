@@ -11,7 +11,7 @@ class Table(QtGui.QTableView):
         self.setModel(MyModel(vHead, hHead, len(vHead), len(hHead)))
         self.setAlternatingRowColors(True)
         #self.setFixedSize(230, 450)
-        
+
 
 class MyModel(QtGui.QStandardItemModel):
 
@@ -23,7 +23,7 @@ class MyModel(QtGui.QStandardItemModel):
             self.setHeaderData(j, QtCore.Qt.Horizontal, i)
 
     def __getitem__(self, indice):
-        #return self.index(indice[0], indice[1]).data().toPyObject()
+        # return self.index(indice[0], indice[1]).data().toPyObject()
         return self.index(indice[0], indice[1]).data().toReal()
 
     def __setitem__(self, indice, dato):

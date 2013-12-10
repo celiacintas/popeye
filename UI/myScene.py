@@ -18,10 +18,10 @@ class okButton(QtGui.QPushButton):
 
     def mousePressEvent(self, event):
         """ """
-        #esta funcion tiene que limpiar de la scene los items
+        # esta funcion tiene que limpiar de la scene los items
         # que estan invisibles
 
-        #TODO agregar botones de listo aca
+        # TODO agregar botones de listo aca
 
 
 class Scene(QtGui.QGraphicsScene):
@@ -45,8 +45,6 @@ class Scene(QtGui.QGraphicsScene):
         self.addItem(proxyBotonEdit)
         self.addItem(proxyBotonPrev)
 
-
-
     def mousePressEvent(self, event):
         """ """
         item = self.itemAt(event.scenePos())
@@ -57,5 +55,3 @@ class Scene(QtGui.QGraphicsScene):
         """" """
         item = self.itemAt(event.scenePos())
         self.sendEvent(item, event)
-
-

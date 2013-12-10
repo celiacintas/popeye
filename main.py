@@ -8,6 +8,7 @@ import sys
 from PyQt4 import QtGui, QtCore
 from UI.mainWindow import Main_Window
 
+
 def main():
 
     app = QtGui.QApplication(sys.argv)
@@ -19,7 +20,6 @@ def main():
     window = Main_Window()
     window.move(300, 100)
     window.show()
-
 
     sys.exit(app.exec_())
 

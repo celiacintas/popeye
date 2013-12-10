@@ -13,15 +13,14 @@ class DialogOptions(QtGui.QDialog):
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
         self.initUI(numberOfLandmarks)
-           
-    def initUI(self, numberOfLandmarks):      
+
+    def initUI(self, numberOfLandmarks):
         pixmap = QtGui.QPixmap("UI/Images/landmarking.jpg")
         for i in range(numberOfLandmarks):
             item = QtGui.QListWidgetItem("%i" % i)
-            self.ui.listWidget.addItem(item)       
-        
+            self.ui.listWidget.addItem(item)
+
         self.ui.label.setPixmap(pixmap)
-   
+
         self.setWindowTitle('Landmarking Selection')
         self.exec_()
-        

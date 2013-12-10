@@ -21,5 +21,3 @@ class MyGraphicsView(QtGui.QGraphicsView):
                     posx = 0
                 i.setPos(posx, posy)
                 posx += i.pixmap().width() + 10
-
-
