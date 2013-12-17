@@ -16,7 +16,6 @@ from Utils.export import SaveFile
 from states import *
 
 
-
 class Main_Window(QtGui.QMainWindow):
 
     def __init__(self):
@@ -32,26 +31,27 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.pushButton_4.clicked.connect(self.save)
         self.ui.pushButton_6.clicked.connect(self.showAbout)
         self.ui.pushButton_5.clicked.connect(self.showQuit)
-        
+
         self.ui.graphicsView.show()
         self.photosNames = list()
         self.landn = 77
         self.machine = QtCore.QStateMachine()
 
-        #States
+        # States
         self.state1 = State_Init(self.machine, self.ui)
         self.state2 = State_ImageLoading(self.machine, self)
         self.state3 = State_LanmarkingSelection(self.machine, self)
         self.state4 = State_runLandmarking(self.machine, self)
-        
-        #Transitions
+
+        # Transitions
         self.state1.addTransition(self.ui.pushButton.clicked, self.state2)
         self.state2.addTransition(self.ui.pushButton_2.clicked, self.state3)
-        self.state2.addTransition(self.ui.pushButton.clicked, self.state2) #TODO primero un clean
+        #TODO primero un clean
+        self.state2.addTransition(self.ui.pushButton.clicked, self.state2)
         self.state3.addTransition(self.ui.pushButton_2.clicked, self.state3)
         self.state3.addTransition(self.ui.pushButton_3.clicked, self.state4)
         self.state4.addTransition(self.ui.pushButton_3.clicked, self.state4)
-        
+
         self.machine.setInitialState(self.state1)
         self.machine.start()
 
@@ -72,7 +72,7 @@ class Main_Window(QtGui.QMainWindow):
         return QtGui.QMessageBox.about(self, u"About PopEye", text)
 
     def removeFromScene(self):
-        #TODO make an state
+        # TODO make an state
         items = self.ui.scene.items()
         for i in items:
             if isinstance(i, QtGui.QGraphicsProxyWidget):

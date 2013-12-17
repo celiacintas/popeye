@@ -11,12 +11,13 @@ from UI.dialogOptions import DialogOptions
 from UI.myButton import MyButton
 from finder import Finder
 
+
 class State_Init(QtCore.QState):
 
     def __init__(self, machine, ui):
         QtCore.QState.__init__(self, machine)
         self.ui = ui
- 
+
     def onEntry(self, e):
         self.ui.pushButton_2.setEnabled(False)
         self.ui.pushButton_3.setEnabled(False)
@@ -24,6 +25,7 @@ class State_Init(QtCore.QState):
 
     def onExit(self, e):
         pass
+
 
 class State_ImageLoading(QtCore.QState):
 
@@ -65,7 +67,7 @@ class State_LanmarkingSelection(QtCore.QState):
     def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
         self.window = window
-    
+
     def onEntry(self, e):
         self.showPreferences()
         self.window.ui.pushButton_3.setEnabled(True)
@@ -75,14 +77,14 @@ class State_LanmarkingSelection(QtCore.QState):
 
     def showPreferences(self):
         """ Dialog for select the anatomic parts to evaluate."""
-        #self.window.ui.pushButton_3.setEnabled(False)
+        # self.window.ui.pushButton_3.setEnabled(False)
         options = DialogOptions()
         if options.ui.listWidget.selectedItems():
             self.window.numberOfLandmarks = [int(x.text())
-                                      for x in options.ui.listWidget.selectedItems()]
+                                             for x in options.ui.listWidget.selectedItems()]
         else:
-            self.window.numberOfLandmarks = [i for i in range(self.window.landn)]
-        
+            self.window.numberOfLandmarks = [
+                i for i in range(self.window.landn)]
 
 
 class State_runLandmarking(QtCore.QState):
@@ -100,11 +102,10 @@ class State_runLandmarking(QtCore.QState):
         self.window.ui.myButtonNext.clicked.connect(self.window.next)
         self.window.ui.myButtonEdit.clicked.connect(self.window.edit)
         self.window.ui.myButtonPrev.clicked.connect(self.window.prev)
-        #TODO make an inner state machine
+        # TODO make an inner state machine
         self.window.ui.scene.buttonsForChecker(
             self.window.ui.myButtonNext, self.window.ui.myButtonEdit, self.window.ui.myButtonPrev)
         self.run()
-        
 
     def onExit(self, e):
         pass
@@ -118,12 +119,12 @@ class State_runLandmarking(QtCore.QState):
         self.window.myFinder.findLandmarks()
         QtGui.QApplication.restoreOverrideCursor()
 
-        self.window.images = self.window.myFinder.drawLandmarks(self.window.numberOfLandmarks)
-       
+        self.window.images = self.window.myFinder.drawLandmarks(
+            self.window.numberOfLandmarks)
 
         self.window.drawLandmarks()
 
-        #make small FA for this one
+        # make small FA for this one
         self.window.ui.myButtonPrev.setVisible(True)
         self.window.ui.myButtonEdit.setVisible(True)
         self.window.ui.myButtonNext.setVisible(True)

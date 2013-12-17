@@ -12,7 +12,7 @@ from UI.mainWindow import Main_Window
 def main():
 
     app = QtGui.QApplication(sys.argv)
-  
+
     window = Main_Window()
     window.move(300, 100)
     window.show()
