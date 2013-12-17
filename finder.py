@@ -13,6 +13,9 @@ import numpy as np
 class Finder():
 
     def __init__(self, pathFile):
+    	"""
+    	Create de Stasm module and save the files names.
+    	"""
         #self.fileNames = [os.path.join(pathFile,f) for f in os.listdir(pathFile) if re.match(r'.*\.JPG', f)]
         self.fileNames = pathFile
         self.myStasm = pystasm.STASM()
@@ -21,10 +24,16 @@ class Finder():
         pass
 
     def findLandmarks(self, numberLandmarks=77):
+    	"""
+    	Get all the landmarks of the selected images.
+    	"""
         self.landmarks = np.array(
             map(self.myStasm.s_search_single, self.fileNames))
 
     def drawLandmarks(self, posLandmarks):
+    	"""
+    	Draw the selected landmarks and return the modified image.
+    	"""
         images = map(lambda f: (io.imread(f)), self.fileNames)
         for i in range(len(images)):
             for l in posLandmarks:

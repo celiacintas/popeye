@@ -12,11 +12,7 @@ from UI.mainWindow import Main_Window
 def main():
 
     app = QtGui.QApplication(sys.argv)
-    splash_pix = QtGui.QPixmap('Icons/test.png')
-    splash_pix = splash_pix.scaledToWidth(300)
-    splash = QtGui.QSplashScreen(splash_pix, QtCore.Qt.WindowStaysOnTopHint)
-    splash.show()
-
+  
     window = Main_Window()
     window.move(300, 100)
     window.show()
