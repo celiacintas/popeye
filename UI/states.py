@@ -10,6 +10,7 @@ from UI.pixmapItem import PixmapItem
 from UI.dialogOptions import DialogOptions
 from UI.myButton import MyButton
 from finder import Finder
+from Utils.export import SaveFile
 
 
 class State_Init(QtCore.QState):
@@ -73,7 +74,7 @@ class State_LanmarkingSelection(QtCore.QState):
         self.window.ui.pushButton_3.setEnabled(True)
 
     def onExit(self, e):
-        pass
+        self.window.removeFromScene()
 
     def showPreferences(self):
         """ Dialog for select the anatomic parts to evaluate."""
@@ -107,21 +108,24 @@ class State_runLandmarking(QtCore.QState):
             self.window.ui.myButtonNext, self.window.ui.myButtonEdit, self.window.ui.myButtonPrev)
         self.run()
 
+        self.window.ui.pushButton_4.setEnabled(True)
+
     def onExit(self, e):
         pass
 
     def run(self):
         # TODO clean this
-        self.window.removeFromScene()
-        self.window.myFinder = Finder(self.window.photosNames)
-        QtGui.QApplication.setOverrideCursor(
-            QtGui.QCursor(QtCore.Qt.WaitCursor))
-        self.window.myFinder.findLandmarks()
-        QtGui.QApplication.restoreOverrideCursor()
+        
+
+        if not self.window.myFinder:
+            self.window.myFinder = Finder(self.window.photosNames)
+            QtGui.QApplication.setOverrideCursor(
+                QtGui.QCursor(QtCore.Qt.WaitCursor))
+            self.window.myFinder.findLandmarks()
+            QtGui.QApplication.restoreOverrideCursor()
 
         self.window.images = self.window.myFinder.drawLandmarks(
             self.window.numberOfLandmarks)
-
         self.window.drawLandmarks()
 
         # make small FA for this one
@@ -131,16 +135,21 @@ class State_runLandmarking(QtCore.QState):
         self.window.ui.myButtonPrev.setEnabled(False)
         self.window.ui.myButtonNext.setEnabled(True)
 
-        self.ui.window.pushButton_4.setEnabled(True)
-
 
 class State_saveLandmarking(QtCore.QState):
 
-    def __init__(self, machine):
+    def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
+        self.window = window
 
     def onEntry(self, e):
-        pass
+        dialog = QtGui.QFileDialog()
+        saveFileName = dialog.getSaveFileName(self.window, "Save File",
+                                              os.getcwd(),
+                                              "Files (*.txt *.tps *.xls *.cvs)")
+        mySaveFile = SaveFile(
+            saveFileName, self.window.myFinder.landmarks, self.window.numberOfLandmarks)
+        mySaveFile.save()
 
     def onExit(self, e):
         pass

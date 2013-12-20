@@ -12,7 +12,6 @@ from UI.popEye_UI import Ui_MainWindow
 from UI.myScene import Scene
 from UI.table import Table
 from Utils.qimage2ndarray import toQImage
-from Utils.export import SaveFile
 from states import *
 
 
@@ -28,7 +27,6 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.graphicsView.setInteractive(True)
         self.ui.actionAbout.triggered.connect(self.showAbout)
         self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
-        self.ui.pushButton_4.clicked.connect(self.save)
         self.ui.pushButton_6.clicked.connect(self.showAbout)
         self.ui.pushButton_5.clicked.connect(self.showQuit)
 
@@ -42,6 +40,7 @@ class Main_Window(QtGui.QMainWindow):
         self.state2 = State_ImageLoading(self.machine, self)
         self.state3 = State_LanmarkingSelection(self.machine, self)
         self.state4 = State_runLandmarking(self.machine, self)
+        self.state5 = State_saveLandmarking(self.machine, self)
 
         # Transitions
         self.state1.addTransition(self.ui.pushButton.clicked, self.state2)
@@ -50,7 +49,12 @@ class Main_Window(QtGui.QMainWindow):
         self.state2.addTransition(self.ui.pushButton.clicked, self.state2)
         self.state3.addTransition(self.ui.pushButton_2.clicked, self.state3)
         self.state3.addTransition(self.ui.pushButton_3.clicked, self.state4)
+        self.state4.addTransition(self.ui.pushButton_2.clicked, self.state3)
+
         self.state4.addTransition(self.ui.pushButton_3.clicked, self.state4)
+        self.state4.addTransition(self.ui.pushButton_4.clicked, self.state5)
+        self.state5.addTransition(self.ui.pushButton_4.clicked, self.state5)
+        self.state5.addTransition(self.ui.pushButton_2.clicked, self.state3)
 
         self.machine.setInitialState(self.state1)
         self.machine.start()
@@ -75,12 +79,12 @@ class Main_Window(QtGui.QMainWindow):
         # TODO make an state
         items = self.ui.scene.items()
         for i in items:
-            if isinstance(i, QtGui.QGraphicsProxyWidget):
-                i.setVisible(False)
+            #if isinstance(i, QtGui.QGraphicsProxyWidget):
+            #    i.setVisible(False)
             if isinstance(i, PixmapItem) and not i.isVisible():
                 self.photosNames.remove(i.path)
-            if not isinstance(i, QtGui.QGraphicsProxyWidget):
-                self.ui.scene.removeItem(i)
+            #if not isinstance(i, QtGui.QGraphicsProxyWidget):
+            #    self.ui.scene.removeItem(i)
 
     # prev next and save to one small FA
     def prev(self):
@@ -100,15 +104,6 @@ class Main_Window(QtGui.QMainWindow):
             self.ui.myButtonNext.setEnabled(False)
         if not self.ui.myButtonPrev.isEnabled():
             self.ui.myButtonPrev.setEnabled(True)
-
-    def save(self):
-        dialog = QtGui.QFileDialog()
-        saveFileName = dialog.getSaveFileName(self, "Save File",
-                                              os.getcwd(),
-                                              "Files (*.txt *.tps *.xls *.cvs)")
-        mySaveFile = SaveFile(
-            saveFileName, self.myFinder.landmarks, self.numberOfLandmarks)
-        mySaveFile.save()
 
     def drawLandmarks(self):
             self.myTable = Table(self.numberOfLandmarks, ['x', 'y'])
@@ -135,6 +130,4 @@ class Main_Window(QtGui.QMainWindow):
     def edit(self):
         pass
 
-    def saveLandmarks(self):
-        if not self.ui.myButtonPrev.isEnabled():
-            self.ui.myButtonPrev.setEnabled(True)
+    
