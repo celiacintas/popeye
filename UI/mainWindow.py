@@ -41,7 +41,7 @@ class Main_Window(QtGui.QMainWindow):
         self.state3 = State_LanmarkingSelection(self.machine, self)
         self.state4 = State_runLandmarking(self.machine, self)
         self.state5 = State_saveLandmarking(self.machine, self)
-
+        self.state6 = State_clear(self.machine, self)
         # Transitions
         self.state1.addTransition(self.ui.pushButton.clicked, self.state2)
         self.state2.addTransition(self.ui.pushButton_2.clicked, self.state3)
@@ -55,6 +55,9 @@ class Main_Window(QtGui.QMainWindow):
         self.state4.addTransition(self.ui.pushButton_4.clicked, self.state5)
         self.state5.addTransition(self.ui.pushButton_4.clicked, self.state5)
         self.state5.addTransition(self.ui.pushButton_2.clicked, self.state3)
+        self.state5.addTransition(self.ui.pushButton.clicked, self.state6)
+        self.state6.addTransition(self.state6.finished, self.state2)
+
 
         self.machine.setInitialState(self.state1)
         self.machine.start()
@@ -74,17 +77,6 @@ class Main_Window(QtGui.QMainWindow):
         All the develop is made by people of GIBEH, CENPAT-CONICET.<br></font>
         """
         return QtGui.QMessageBox.about(self, u"About PopEye", text)
-
-    def removeFromScene(self):
-        # TODO make an state
-        items = self.ui.scene.items()
-        for i in items:
-            #if isinstance(i, QtGui.QGraphicsProxyWidget):
-            #    i.setVisible(False)
-            if isinstance(i, PixmapItem) and not i.isVisible():
-                self.photosNames.remove(i.path)
-            #if not isinstance(i, QtGui.QGraphicsProxyWidget):
-            #    self.ui.scene.removeItem(i)
 
     # prev next and save to one small FA
     def prev(self):
