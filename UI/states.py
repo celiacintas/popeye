@@ -94,9 +94,10 @@ class State_runLandmarking(QtCore.QState):
 
     def onEntry(self, e):
         self.window.count = 0
-        self.window.photosNames = filter(lambda x: isinstance(x, PixmapItem) and x.isVisible(), self.window.ui.scene.items())
+        self.window.photosNames = filter(lambda x: isinstance(
+            x, PixmapItem) and x.isVisible(), self.window.ui.scene.items())
         self.window.photosNames = [i.path for i in self.window.photosNames]
-        
+
         self.window.ui.myButtonNext = MyButton("UI/Icons/next.png", "Next ..")
         self.window.ui.myButtonPrev = MyButton("UI/Icons/prev.png", "Prev ..")
         self.window.ui.myButtonEdit = MyButton("UI/Icons/learn.png", "Edit ..")

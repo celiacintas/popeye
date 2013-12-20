@@ -45,7 +45,7 @@ class Main_Window(QtGui.QMainWindow):
         # Transitions
         self.state1.addTransition(self.ui.pushButton.clicked, self.state2)
         self.state2.addTransition(self.ui.pushButton_2.clicked, self.state3)
-        #TODO primero un clean
+        # TODO primero un clean
         self.state2.addTransition(self.ui.pushButton.clicked, self.state2)
         self.state3.addTransition(self.ui.pushButton_2.clicked, self.state3)
         self.state3.addTransition(self.ui.pushButton_3.clicked, self.state4)
@@ -57,7 +57,6 @@ class Main_Window(QtGui.QMainWindow):
         self.state5.addTransition(self.ui.pushButton_2.clicked, self.state3)
         self.state5.addTransition(self.ui.pushButton.clicked, self.state6)
         self.state6.addTransition(self.state6.finished, self.state2)
-
 
         self.machine.setInitialState(self.state1)
         self.machine.start()
@@ -121,5 +120,3 @@ class Main_Window(QtGui.QMainWindow):
 
     def edit(self):
         pass
-
-    
