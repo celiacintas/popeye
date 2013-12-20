@@ -49,7 +49,6 @@ class State_ImageLoading(QtCore.QState):
     def drawPeople(self, fileNames):
         """Show in the scene the photos."""
         # TODO fix this
-        # self.removeFromScene()
         posx = posy = 0
         for i in fileNames:
             pix = QtGui.QPixmap(i)
@@ -74,11 +73,10 @@ class State_LanmarkingSelection(QtCore.QState):
         self.window.ui.pushButton_3.setEnabled(True)
 
     def onExit(self, e):
-        self.window.removeFromScene()
+        pass
 
     def showPreferences(self):
         """ Dialog for select the anatomic parts to evaluate."""
-        # self.window.ui.pushButton_3.setEnabled(False)
         options = DialogOptions()
         if options.ui.listWidget.selectedItems():
             self.window.numberOfLandmarks = [int(x.text())
@@ -96,7 +94,9 @@ class State_runLandmarking(QtCore.QState):
 
     def onEntry(self, e):
         self.window.count = 0
-
+        self.window.photosNames = filter(lambda x: isinstance(x, PixmapItem) and x.isVisible(), self.window.ui.scene.items())
+        self.window.photosNames = [i.path for i in self.window.photosNames]
+        
         self.window.ui.myButtonNext = MyButton("UI/Icons/next.png", "Next ..")
         self.window.ui.myButtonPrev = MyButton("UI/Icons/prev.png", "Prev ..")
         self.window.ui.myButtonEdit = MyButton("UI/Icons/learn.png", "Edit ..")
@@ -115,8 +115,6 @@ class State_runLandmarking(QtCore.QState):
 
     def run(self):
         # TODO clean this
-        
-
         if not self.window.myFinder:
             self.window.myFinder = Finder(self.window.photosNames)
             QtGui.QApplication.setOverrideCursor(
@@ -157,11 +155,15 @@ class State_saveLandmarking(QtCore.QState):
 
 class State_clear(QtCore.QState):
 
-    def __init__(self, machine):
+    def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
+        self.window = window
 
     def onEntry(self, e):
-        pass
+        items = self.window.ui.scene.items()
+        items = filter(lambda x: x.isVisible(), items)
+        map(lambda i: self.window.ui.scene.removeItem(i), items)
+        self.finished.emit()
 
     def onExit(self, e):
         pass
