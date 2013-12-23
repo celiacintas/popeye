@@ -13,6 +13,12 @@ from finder import Finder
 from Utils.export import SaveFile
 
 
+class NoImagesException(Exception):
+
+    def __init__(self):
+        Exception.__init__(self, "You must load some images")
+
+
 class State_Init(QtCore.QState):
 
     def __init__(self, machine, ui):
@@ -36,12 +42,18 @@ class State_ImageLoading(QtCore.QState):
 
     def onEntry(self, e):
         dialog = QtGui.QFileDialog()
-        outFileNames = dialog.getOpenFileNames(self.window, "Open Image",
-                                               os.getcwd(),
-                                               "Image Files (*.png *.jpg *.bmp)")
-        self.drawPeople(outFileNames)
-        self.window.photosNames = outFileNames
-        self.window.ui.pushButton_2.setEnabled(True)
+        try:
+            outFileNames = dialog.getOpenFileNames(self.window, "Open Image",
+                                                   os.getcwd(),
+                                                   "Image Files (*.png *.jpg *.bmp)")
+            if outFileNames == []:
+                raise NoImagesException()
+        except NoImagesException, e:
+            print e
+        else:
+            self.window.photosNames = outFileNames
+            self.drawPeople(outFileNames)
+            self.window.ui.pushButton_2.setEnabled(True)
 
     def onExit(self, e):
         self.window.myFinder = None
@@ -93,23 +105,32 @@ class State_runLandmarking(QtCore.QState):
         self.window = window
 
     def onEntry(self, e):
-        self.window.count = 0
-        self.window.photosNames = filter(lambda x: isinstance(
-            x, PixmapItem) and x.isVisible(), self.window.ui.scene.items())
-        self.window.photosNames = [i.path for i in self.window.photosNames]
+        try:
+            self.window.count = 0
+            self.window.photosNames = filter(lambda x: isinstance(
+                x, PixmapItem) and x.isVisible(), self.window.ui.scene.items())
+            self.window.photosNames = [i.path for i in self.window.photosNames]
+            if self.window.photosNames == []:
+                raise NoImagesException()
+        except NoImagesException, e:
+            print e
+        else:
+            self.run()
 
-        self.window.ui.myButtonNext = MyButton("UI/Icons/next.png", "Next ..")
-        self.window.ui.myButtonPrev = MyButton("UI/Icons/prev.png", "Prev ..")
-        self.window.ui.myButtonEdit = MyButton("UI/Icons/learn.png", "Edit ..")
-        self.window.ui.myButtonNext.clicked.connect(self.window.next)
-        self.window.ui.myButtonEdit.clicked.connect(self.window.edit)
-        self.window.ui.myButtonPrev.clicked.connect(self.window.prev)
-        # TODO make an inner state machine
-        self.window.ui.scene.buttonsForChecker(
-            self.window.ui.myButtonNext, self.window.ui.myButtonEdit, self.window.ui.myButtonPrev)
-        self.run()
+            self.window.ui.myButtonNext = MyButton(
+                "UI/Icons/next.png", "Next ..")
+            self.window.ui.myButtonPrev = MyButton(
+                "UI/Icons/prev.png", "Prev ..")
+            self.window.ui.myButtonEdit = MyButton(
+                "UI/Icons/learn.png", "Edit ..")
+            self.window.ui.myButtonNext.clicked.connect(self.window.next)
+            self.window.ui.myButtonEdit.clicked.connect(self.window.edit)
+            self.window.ui.myButtonPrev.clicked.connect(self.window.prev)
+            # TODO make an inner state machine
+            self.window.ui.scene.buttonsForChecker(
+                self.window.ui.myButtonNext, self.window.ui.myButtonEdit, self.window.ui.myButtonPrev)
 
-        self.window.ui.pushButton_4.setEnabled(True)
+            self.window.ui.pushButton_4.setEnabled(True)
 
     def onExit(self, e):
         pass
@@ -165,6 +186,41 @@ class State_clear(QtCore.QState):
         items = filter(lambda x: x.isVisible(), items)
         map(lambda i: self.window.ui.scene.removeItem(i), items)
         self.finished.emit()
+
+    def onExit(self, e):
+        pass
+
+
+class State_about(QtCore.QState):
+
+    def __init__(self, machine, window):
+        QtCore.QState.__init__(self, machine)
+        self.window = window
+
+    def onEntry(self, e):
+        """Credits."""
+        text = u"""<font color=black> PopEye is made in Python and C++ using several libraries such as:
+        numpy, scikit-image, STASM (with ctypes), scikit-learn.
+        All the develop is made by people of GIBEH, CENPAT-CONICET.<br></font>
+        """
+        return QtGui.QMessageBox.about(self.window, u"About PopEye", text)
+
+    def onExit(self, e):
+        pass
+
+
+class State_exit(QtCore.QFinalState):
+
+    def __init__(self, machine, window):
+        QtCore.QFinalState.__init__(self, machine)
+        self.window = window
+
+    def onEntry(self, e):
+        """Exit dialog."""
+        reply = QtGui.QMessageBox.question(
+            self.window, 'Message', "Do you really want to go??", QtGui.QMessageBox.Yes, QtGui.QMessageBox.No)
+        if reply == QtGui.QMessageBox.Yes:
+            QtCore.QCoreApplication.instance().quit()
 
     def onExit(self, e):
         pass

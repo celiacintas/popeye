@@ -25,58 +25,65 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.scene.setSceneRect(0, 0, 700, 300)
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
-        self.ui.actionAbout.triggered.connect(self.showAbout)
         self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
-        self.ui.pushButton_6.clicked.connect(self.showAbout)
-        self.ui.pushButton_5.clicked.connect(self.showQuit)
-
+        
         self.ui.graphicsView.show()
         self.photosNames = list()
         self.landn = 77
         self.machine = QtCore.QStateMachine()
 
         # States
-        self.state1 = State_Init(self.machine, self.ui)
-        self.state2 = State_ImageLoading(self.machine, self)
-        self.state3 = State_LanmarkingSelection(self.machine, self)
-        self.state4 = State_runLandmarking(self.machine, self)
-        self.state5 = State_saveLandmarking(self.machine, self)
-        self.state6 = State_clear(self.machine, self)
+        self.init = State_Init(self.machine, self.ui)
+        self.imageLoad = State_ImageLoading(self.machine, self)
+        self.landmarkingSelection = State_LanmarkingSelection(self.machine, self)
+        self.run = State_runLandmarking(self.machine, self)
+        self.save = State_saveLandmarking(self.machine, self)
+        self.clear = State_clear(self.machine, self)
+        self.quit = State_exit(self.machine, self)
+        self.about = State_about(self.machine, self)
         # Transitions
-        self.state1.addTransition(self.ui.pushButton.clicked, self.state2)
-        self.state2.addTransition(self.ui.pushButton_2.clicked, self.state3)
-        # TODO primero un clean
-        self.state2.addTransition(self.ui.pushButton.clicked, self.state2)
-        self.state3.addTransition(self.ui.pushButton_2.clicked, self.state3)
-        self.state3.addTransition(self.ui.pushButton_3.clicked, self.state4)
-        self.state4.addTransition(self.ui.pushButton_2.clicked, self.state3)
+        self.init.addTransition(self.ui.pushButton.clicked, self.imageLoad)
+        self.init.addTransition(self.ui.pushButton_5.clicked, self.quit)
+        self.init.addTransition(self.ui.pushButton_6.clicked, self.about)
 
-        self.state4.addTransition(self.ui.pushButton_3.clicked, self.state4)
-        self.state4.addTransition(self.ui.pushButton_4.clicked, self.state5)
-        self.state5.addTransition(self.ui.pushButton_4.clicked, self.state5)
-        self.state5.addTransition(self.ui.pushButton_2.clicked, self.state3)
-        self.state5.addTransition(self.ui.pushButton.clicked, self.state6)
-        self.state6.addTransition(self.state6.finished, self.state2)
+        self.imageLoad.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.imageLoad.addTransition(self.ui.pushButton_5.clicked, self.quit)
+        self.imageLoad.addTransition(self.ui.pushButton.clicked, self.imageLoad)
+        self.imageLoad.addTransition(self.ui.pushButton_6.clicked, self.about)
 
-        self.machine.setInitialState(self.state1)
+        self.landmarkingSelection.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.landmarkingSelection.addTransition(self.ui.pushButton_3.clicked, self.run)
+        self.landmarkingSelection.addTransition(self.ui.pushButton_5.clicked, self.quit)
+        self.landmarkingSelection.addTransition(self.ui.pushButton_6.clicked, self.about)
+
+        self.run.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.run.addTransition(self.ui.pushButton_3.clicked, self.run)
+        self.run.addTransition(self.ui.pushButton_4.clicked, self.save)
+        self.run.addTransition(self.ui.pushButton_5.clicked, self.quit)
+        self.run.addTransition(self.ui.pushButton_6.clicked, self.about)
+
+        self.save.addTransition(self.ui.pushButton_4.clicked, self.save)
+        self.save.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.save.addTransition(self.ui.pushButton.clicked, self.clear)
+        self.save.addTransition(self.ui.pushButton_5.clicked, self.quit)
+        self.save.addTransition(self.ui.pushButton_6.clicked, self.about)
+
+        self.clear.addTransition(self.clear.finished, self.imageLoad)
+
+        self.about.addTransition(self.ui.pushButton.clicked, self.imageLoad)
+        self.about.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.about.addTransition(self.ui.pushButton_3.clicked, self.run)
+        self.about.addTransition(self.ui.pushButton_5.clicked, self.quit)
+        self.about.addTransition(self.ui.pushButton_6.clicked, self.about)
+        
+
+        self.machine.setInitialState(self.init)
         self.machine.start()
 
-    def showQuit(self):
-        """Exit dialog."""
-        reply = QtGui.QMessageBox.question(self, 'Message',
-                                           "Do you really want to go??", QtGui.QMessageBox.Yes,
-                                           QtGui.QMessageBox.No)
-        if reply == QtGui.QMessageBox.Yes:
-            QtCore.QCoreApplication.instance().quit()
 
-    def showAbout(self):
-        """Credits."""
-        text = u"""<font color=black> PopEye is made in Python and C++ using several libraries such as:  
-        numpy, scikit-image, STASM (with ctypes), scikit-learn.
-        All the develop is made by people of GIBEH, CENPAT-CONICET.<br></font>
-        """
-        return QtGui.QMessageBox.about(self, u"About PopEye", text)
 
+   
+        
     # prev next and save to one small FA
     def prev(self):
         if 0 < self.count < len(self.images):
