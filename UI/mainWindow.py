@@ -26,9 +26,17 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
         self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
-
+        self.ui.myButtonNext = MyButton(
+            "UI/Icons/next.png", "Next ..", False)
+        self.ui.myButtonPrev = MyButton(
+            "UI/Icons/prev.png", "Prev ..", False)
+        self.ui.myButtonEdit = MyButton(
+            "UI/Icons/learn.png", "Edit ..", False)
+        self.ui.scene.buttonsForChecker(
+            self.ui.myButtonNext, self.ui.myButtonEdit,
+            self.ui.myButtonPrev)
         self.ui.graphicsView.show()
-        self.photosNames = list()
+
         self.landn = 77
         self.machine = QtCore.QStateMachine()
 
@@ -37,11 +45,19 @@ class Main_Window(QtGui.QMainWindow):
         self.imageLoad = State_ImageLoading(self.machine, self)
         self.landmarkingSelection = State_LanmarkingSelection(
             self.machine, self)
-        self.run = State_runLandmarking(self.machine, self)
         self.save = State_saveLandmarking(self.machine, self)
         self.clear = State_clear(self.machine, self)
         self.quit = State_exit(self.machine, self)
         self.about = State_about(self.machine, self)
+        self.run = State_runLandmarking(self.machine, self)
+
+        # Group of states for run
+        run_init = State_init_run(self.run, self)
+        run_fwd = State_foward(self.run, self)
+        run_bck = State_back(self.run, self)
+        run_edit = State_edit(self.run, self)
+        self.run.setInitialState(run_init)
+
         # Transitions
         self.init.addTransition(self.ui.pushButton.clicked, self.imageLoad)
         self.init.addTransition(self.ui.pushButton_5.clicked, self.quit)
@@ -61,15 +77,6 @@ class Main_Window(QtGui.QMainWindow):
             self.ui.pushButton_5.clicked, self.quit)
         self.landmarkingSelection.addTransition(
             self.ui.pushButton_6.clicked, self.about)
-
-        self.run.addTransition(self.ui.pushButton.clicked, self.clear)
-        self.run.addTransition(
-            self.ui.pushButton_2.clicked, self.landmarkingSelection)
-        self.run.addTransition(self.ui.pushButton_3.clicked, self.run)
-        self.run.addTransition(self.ui.pushButton_4.clicked, self.save)
-        self.run.addTransition(self.ui.pushButton_5.clicked, self.quit)
-        self.run.addTransition(self.ui.pushButton_6.clicked, self.about)
-
         self.save.addTransition(self.ui.pushButton_4.clicked, self.save)
         self.save.addTransition(
             self.ui.pushButton_2.clicked, self.landmarkingSelection)
@@ -96,29 +103,20 @@ class Main_Window(QtGui.QMainWindow):
         self.quit.addTransition(self.ui.pushButton_6.clicked, self.about)
         self.quit.addTransition(self.ui.pushButton_4.clicked, self.save)
 
-
+        self.run.addTransition(self.ui.pushButton.clicked, self.clear)
+        self.run.addTransition(
+            self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.run.addTransition(self.ui.pushButton_3.clicked, self.run)
+        self.run.addTransition(self.ui.pushButton_4.clicked, self.save)
+        self.run.addTransition(self.ui.pushButton_5.clicked, self.quit)
+        self.run.addTransition(self.ui.pushButton_6.clicked, self.about)
+        # Transitions under run
+        run_init.addTransition(self.ui.myButtonNext.clicked, run_fwd)
+        run_init.addTransition(self.ui.myButtonPrev.clicked, run_bck)
+        run_init.addTransition(self.ui.myButtonEdit.clicked, run_edit)
 
         self.machine.setInitialState(self.init)
         self.machine.start()
-
-    # prev next and save to one small FA
-    def prev(self):
-        if 0 < self.count < len(self.images):
-            self.count = self.count - 1
-            self.drawLandmarks()
-        else:
-            self.ui.myButtonPrev.setEnabled(False)
-        if not self.ui.myButtonNext.isEnabled():
-            self.ui.myButtonNext.setEnabled(True)
-
-    def next(self):
-        if 0 <= self.count < len(self.images) - 1:
-            self.count = self.count + 1
-            self.drawLandmarks()
-        else:
-            self.ui.myButtonNext.setEnabled(False)
-        if not self.ui.myButtonPrev.isEnabled():
-            self.ui.myButtonPrev.setEnabled(True)
 
     def drawLandmarks(self):
             self.myTable = Table(self.numberOfLandmarks, ['x', 'y'])
@@ -142,5 +140,3 @@ class Main_Window(QtGui.QMainWindow):
             for j in range(len(landmarks[0])):
                 myModel[i, j] = float(landmarks[i][j])
 
-    def edit(self):
-        pass

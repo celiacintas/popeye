@@ -127,6 +127,19 @@ class State_runLandmarking(QtCore.QState):
         self.window = window
 
     def onEntry(self, e):
+        pass
+
+    def onExit(self, e):
+        pass
+
+
+class State_init_run(QtCore.QState):
+
+    def __init__(self, machine, window, parent=None):
+        QtCore.QState.__init__(self, machine)
+        self.window = window
+
+    def onEntry(self, e):
         try:
             self.window.count = 0
             photosNames = getPhotosNames(self.window.ui.scene.items())
@@ -138,19 +151,10 @@ class State_runLandmarking(QtCore.QState):
                                       "Warning",
                                       e.message)
         else:
-            self.window.ui.myButtonNext = MyButton(
-                "UI/Icons/next.png", "Next ..")
-            self.window.ui.myButtonPrev = MyButton(
-                "UI/Icons/prev.png", "Prev ..")
-            self.window.ui.myButtonEdit = MyButton(
-                "UI/Icons/learn.png", "Edit ..")
-            self.window.ui.myButtonNext.clicked.connect(self.window.next)
-            self.window.ui.myButtonEdit.clicked.connect(self.window.edit)
-            self.window.ui.myButtonPrev.clicked.connect(self.window.prev)
-            # TODO make an inner state machine
-            self.window.ui.scene.buttonsForChecker(
-                self.window.ui.myButtonNext, self.window.ui.myButtonEdit, self.window.ui.myButtonPrev)
             self.run(photosNames)
+            self.window.ui.myButtonPrev.setVisible(True)
+            self.window.ui.myButtonNext.setVisible(True)
+            self.window.ui.myButtonEdit.setVisible(True)
             self.window.ui.pushButton_4.setEnabled(True)
 
     def onExit(self, e):
@@ -170,42 +174,51 @@ class State_runLandmarking(QtCore.QState):
         self.window.drawLandmarks()
 
         # make small FA for this one
-        self.window.ui.myButtonPrev.setVisible(True)
-        self.window.ui.myButtonEdit.setVisible(True)
-        self.window.ui.myButtonNext.setVisible(True)
-        self.window.ui.myButtonPrev.setEnabled(False)
-        self.window.ui.myButtonNext.setEnabled(True)
 
 
-class State_init_run(State_runLandmarking):
+class State_foward(QtCore.QState):
 
-    def __init__(self, machine, window):
+    def __init__(self, machine, window, parent=None):
         QtCore.QState.__init__(self, machine)
         self.window = window
 
     def onEntry(self, e):
+        """def next(self):
+        if 0 <= self.count < len(self.images) - 1:
+            self.count = self.count + 1
+            self.drawLandmarks()
+        else:
+            self.ui.myButtonNext.setEnabled(False)
+        if not self.ui.myButtonPrev.isEnabled():
+            self.ui.myButtonPrev.setEnabled(True)"""
         pass
 
     def onExit(self, e):
         pass
 
 
-class State_foward(State_runLandmarking):
+class State_back(QtCore.QState):
 
-    def __init__(self, machine, window):
+    def __init__(self, machine, window, parent=None):
         QtCore.QState.__init__(self, machine)
         self.window = window
 
     def onEntry(self, e):
-        pass
+        """if 0 < self.count < len(self.window.images):
+            self.count = self.count - 1
+            self.window.drawLandmarks()
+        else:
+            self.ui.myButtonPrev.setEnabled(False)
+        if not self.ui.myButtonNext.isEnabled():
+            self.ui.myButtonNext.setEnabled(True)
+        """
 
     def onExit(self, e):
         pass
 
+class State_edit(QtCore.QState):
 
-class State_back(State_runLandmarking):
-
-    def __init__(self, machine, window):
+    def __init__(self, machine, window, parent=None):
         QtCore.QState.__init__(self, machine)
         self.window = window
 

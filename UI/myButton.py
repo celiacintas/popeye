@@ -6,7 +6,7 @@ from PyQt4 import QtGui, QtCore
 
 class MyButton(QtGui.QPushButton):
 
-    def __init__(self, iconPath, tooltip, parent=None):
+    def __init__(self, iconPath, tooltip, visible=True, parent=None):
         super(MyButton, self).__init__(parent)
         icon = QtGui.QIcon()
         icon.addPixmap(
@@ -15,6 +15,7 @@ class MyButton(QtGui.QPushButton):
         self.setIcon(icon)
         self.setIconSize(QtCore.QSize(54, 54))
         self.setFlat(True)
+        self.setVisible(visible)
         self.setCheckable(False)
         self.setStyleSheet(
             "background-image:url(t.jpg);\n border-style: none;\n")
