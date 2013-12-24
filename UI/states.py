@@ -14,17 +14,21 @@ from UI.myButton import MyButton
 from finder import Finder
 from Utils.export import SaveFile
 
-getPhotosNames = lambda items: [i.path for i in filter(lambda x: isinstance(x, PixmapItem) and x.isVisible(), items)]
-            
+getPhotosNames = lambda items: [i.path for i in filter(
+    lambda x: isinstance(x, PixmapItem) and x.isVisible(), items)]
+
+
 class NoImagesException(Exception):
 
     def __init__(self):
         Exception.__init__(self, "You must load some images")
 
+
 class NolandmarksException(Exception):
 
     def __init__(self):
         Exception.__init__(self, "You must select some landmarks")
+
 
 class State_Init(QtCore.QState):
 
@@ -58,8 +62,8 @@ class State_ImageLoading(QtCore.QState):
         except NoImagesException, e:
             logging.error(e.message, exc_info=True)
             QtGui.QMessageBox.warning(self.window,
-                            "Warning",
-                            e.message)
+                                      "Warning",
+                                      e.message)
         else:
             #self.window.photosNames = outFileNames
             self.drawPeople(outFileNames)
@@ -76,7 +80,7 @@ class State_ImageLoading(QtCore.QState):
             pix = QtGui.QPixmap(i)
             sca = PixmapItem(pix.scaledToWidth(90), i, self.window.ui.scene)
             sca.setFlags(QtGui.QGraphicsItem.ItemIsSelectable)
-            #self.window.ui.scene.addItem(sca)
+            # self.window.ui.scene.addItem(sca)
             if (self.window.ui.graphicsView.width() < (posx + 100)):
                 posy += sca.pixmap().height() + 10
                 posx = 0
@@ -130,8 +134,8 @@ class State_runLandmarking(QtCore.QState):
         except NoImagesException, e:
             logging.error(e.message, exc_info=True)
             QtGui.QMessageBox.warning(self.window,
-                            "Warning",
-                            e.message)
+                                      "Warning",
+                                      e.message)
         else:
             self.window.ui.myButtonNext = MyButton(
                 "UI/Icons/next.png", "Next ..")

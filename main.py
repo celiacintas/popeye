@@ -12,7 +12,7 @@ from UI.mainWindow import Main_Window
 
 def main():
 
-    logging.basicConfig(filename='Logs/popeye.log') #, level=logging.INFO)
+    logging.basicConfig(filename='Logs/popeye.log')  # , level=logging.INFO)
     logging.info('Popeye Started')
     app = QtGui.QApplication(sys.argv)
 

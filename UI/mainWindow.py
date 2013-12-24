@@ -26,7 +26,7 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
         self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
-        
+
         self.ui.graphicsView.show()
         self.photosNames = list()
         self.landn = 77
@@ -35,7 +35,8 @@ class Main_Window(QtGui.QMainWindow):
         # States
         self.init = State_Init(self.machine, self.ui)
         self.imageLoad = State_ImageLoading(self.machine, self)
-        self.landmarkingSelection = State_LanmarkingSelection(self.machine, self)
+        self.landmarkingSelection = State_LanmarkingSelection(
+            self.machine, self)
         self.run = State_runLandmarking(self.machine, self)
         self.save = State_saveLandmarking(self.machine, self)
         self.clear = State_clear(self.machine, self)
@@ -46,24 +47,32 @@ class Main_Window(QtGui.QMainWindow):
         self.init.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.init.addTransition(self.ui.pushButton_6.clicked, self.about)
 
-        self.imageLoad.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.imageLoad.addTransition(
+            self.ui.pushButton_2.clicked, self.landmarkingSelection)
         self.imageLoad.addTransition(self.ui.pushButton_5.clicked, self.quit)
-        self.imageLoad.addTransition(self.ui.pushButton.clicked, self.imageLoad)
+        self.imageLoad.addTransition(
+            self.ui.pushButton.clicked, self.imageLoad)
         self.imageLoad.addTransition(self.ui.pushButton_6.clicked, self.about)
 
-        self.landmarkingSelection.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
-        self.landmarkingSelection.addTransition(self.ui.pushButton_3.clicked, self.run)
-        self.landmarkingSelection.addTransition(self.ui.pushButton_5.clicked, self.quit)
-        self.landmarkingSelection.addTransition(self.ui.pushButton_6.clicked, self.about)
+        self.landmarkingSelection.addTransition(
+            self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.landmarkingSelection.addTransition(
+            self.ui.pushButton_3.clicked, self.run)
+        self.landmarkingSelection.addTransition(
+            self.ui.pushButton_5.clicked, self.quit)
+        self.landmarkingSelection.addTransition(
+            self.ui.pushButton_6.clicked, self.about)
 
-        self.run.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.run.addTransition(
+            self.ui.pushButton_2.clicked, self.landmarkingSelection)
         self.run.addTransition(self.ui.pushButton_3.clicked, self.run)
         self.run.addTransition(self.ui.pushButton_4.clicked, self.save)
         self.run.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.run.addTransition(self.ui.pushButton_6.clicked, self.about)
 
         self.save.addTransition(self.ui.pushButton_4.clicked, self.save)
-        self.save.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.save.addTransition(
+            self.ui.pushButton_2.clicked, self.landmarkingSelection)
         self.save.addTransition(self.ui.pushButton.clicked, self.clear)
         self.save.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.save.addTransition(self.ui.pushButton_6.clicked, self.about)
@@ -71,19 +80,15 @@ class Main_Window(QtGui.QMainWindow):
         self.clear.addTransition(self.clear.finished, self.imageLoad)
 
         self.about.addTransition(self.ui.pushButton.clicked, self.imageLoad)
-        self.about.addTransition(self.ui.pushButton_2.clicked, self.landmarkingSelection)
+        self.about.addTransition(
+            self.ui.pushButton_2.clicked, self.landmarkingSelection)
         self.about.addTransition(self.ui.pushButton_3.clicked, self.run)
         self.about.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.about.addTransition(self.ui.pushButton_6.clicked, self.about)
-        
 
         self.machine.setInitialState(self.init)
         self.machine.start()
 
-
-
-   
-        
     # prev next and save to one small FA
     def prev(self):
         if 0 < self.count < len(self.images):
@@ -116,7 +121,7 @@ class Main_Window(QtGui.QMainWindow):
             qitmp = toQImage(self.images[self.count])
             pix = QtGui.QPixmap(QtGui.QPixmap.fromImage(qitmp))
             sca = PixmapItem(pix.scaledToWidth(310), None, self.ui.scene)
-            #self.ui.scene.addItem(sca)
+            # self.ui.scene.addItem(sca)
             self.ui.scene.addItem(proxyTabla)
 
     def loadModel(self, landmarks):
