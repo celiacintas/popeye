@@ -14,6 +14,7 @@ from UI.myButton import MyButton
 from finder import Finder
 from Utils.export import SaveFile
 
+
 getPhotosNames = lambda items: [i.path for i in filter(
     lambda x: isinstance(x, PixmapItem) and x.isVisible(), items)]
 
@@ -47,9 +48,9 @@ class State_Init(QtCore.QState):
 
 class State_ImageLoading(QtCore.QState):
 
-    def __init__(self, machine, win):
+    def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
-        self.window = win
+        self.window = window
 
     def onEntry(self, e):
         dialog = QtGui.QFileDialog()
@@ -96,7 +97,6 @@ class State_LanmarkingSelection(QtCore.QState):
 
     def onEntry(self, e):
         self.showPreferences()
-        self.window.ui.pushButton_3.setEnabled(True)
 
     def onExit(self, e):
         pass
@@ -111,6 +111,7 @@ class State_LanmarkingSelection(QtCore.QState):
                 if options.ui.listWidget.selectedItems():
                     self.window.numberOfLandmarks = [int(x.text())
                                                      for x in options.ui.listWidget.selectedItems()]
+                    self.window.ui.pushButton_3.setEnabled(True)
                 else:
                     raise NolandmarksException
 
@@ -176,6 +177,43 @@ class State_runLandmarking(QtCore.QState):
         self.window.ui.myButtonNext.setEnabled(True)
 
 
+class State_init_run(State_runLandmarking):
+
+    def __init__(self, machine, window):
+        QtCore.QState.__init__(self, machine)
+        self.window = window
+
+    def onEntry(self, e):
+        pass
+
+    def onExit(self, e):
+        pass
+
+
+class State_foward(State_runLandmarking):
+    def __init__(self, machine, window):
+        QtCore.QState.__init__(self, machine)
+        self.window = window
+
+    def onEntry(self, e):
+        pass
+
+    def onExit(self, e):
+        pass
+
+
+class State_back(State_runLandmarking):
+    def __init__(self, machine, window):
+        QtCore.QState.__init__(self, machine)
+        self.window = window
+
+    def onEntry(self, e):
+        pass
+
+    def onExit(self, e):
+        pass
+
+
 class State_saveLandmarking(QtCore.QState):
 
     def __init__(self, machine, window):
@@ -229,10 +267,10 @@ class State_about(QtCore.QState):
         pass
 
 
-class State_exit(QtCore.QFinalState):
+class State_exit(QtCore.QState):
 
     def __init__(self, machine, window):
-        QtCore.QFinalState.__init__(self, machine)
+        QtCore.QState.__init__(self, machine)
         self.window = window
 
     def onEntry(self, e):
