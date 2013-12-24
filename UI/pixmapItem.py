@@ -6,8 +6,8 @@ from PyQt4 import QtGui
 
 class PixmapItem(QtGui.QGraphicsPixmapItem):
 
-    def __init__(self, pixmap, path, parent=None):
-        super(PixmapItem, self).__init__(parent)
+    def __init__(self, pixmap, path, scene, parent=None):
+        super(PixmapItem, self).__init__(parent, scene)
         self.setPixmap(pixmap)
         self.path = path
 
@@ -26,3 +26,4 @@ class PixmapItem(QtGui.QGraphicsPixmapItem):
         action = menu.exec_(contextEvent.screenPos())
         if (action == deleteAction):
             self.setVisible(False)
+

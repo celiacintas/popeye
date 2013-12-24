@@ -14,12 +14,17 @@ from UI.myButton import MyButton
 from finder import Finder
 from Utils.export import SaveFile
 
-
+getPhotosNames = lambda items: [i.path for i in filter(lambda x: isinstance(x, PixmapItem) and x.isVisible(), items)]
+            
 class NoImagesException(Exception):
 
     def __init__(self):
         Exception.__init__(self, "You must load some images")
 
+class NolandmarksException(Exception):
+
+    def __init__(self):
+        Exception.__init__(self, "You must select some landmarks")
 
 class State_Init(QtCore.QState):
 
@@ -56,7 +61,7 @@ class State_ImageLoading(QtCore.QState):
                             "Warning",
                             e.message)
         else:
-            self.window.photosNames = outFileNames
+            #self.window.photosNames = outFileNames
             self.drawPeople(outFileNames)
             self.window.ui.pushButton_2.setEnabled(True)
 
@@ -69,9 +74,9 @@ class State_ImageLoading(QtCore.QState):
         posx = posy = 0
         for i in fileNames:
             pix = QtGui.QPixmap(i)
-            sca = PixmapItem(pix.scaledToWidth(90), i)
+            sca = PixmapItem(pix.scaledToWidth(90), i, self.window.ui.scene)
             sca.setFlags(QtGui.QGraphicsItem.ItemIsSelectable)
-            self.window.ui.scene.addItem(sca)
+            #self.window.ui.scene.addItem(sca)
             if (self.window.ui.graphicsView.width() < (posx + 100)):
                 posy += sca.pixmap().height() + 10
                 posx = 0
@@ -94,13 +99,20 @@ class State_LanmarkingSelection(QtCore.QState):
 
     def showPreferences(self):
         """ Dialog for select the anatomic parts to evaluate."""
-        options = DialogOptions()
-        if options.ui.listWidget.selectedItems():
-            self.window.numberOfLandmarks = [int(x.text())
-                                             for x in options.ui.listWidget.selectedItems()]
-        else:
-            self.window.numberOfLandmarks = [
-                i for i in range(self.window.landn)]
+        try:
+            if getPhotosNames(self.window.ui.scene.items()) == []:
+                raise NoImagesException
+            else:
+                options = DialogOptions()
+                if options.ui.listWidget.selectedItems():
+                    self.window.numberOfLandmarks = [int(x.text())
+                                                     for x in options.ui.listWidget.selectedItems()]
+                else:
+                    raise NolandmarksException
+
+        except (NoImagesException, NolandmarksException) as e:
+            logging.error(e.message, exc_info=True)
+            QtGui.QMessageBox.warning(self.window, "Warning", e.message)
 
 
 class State_runLandmarking(QtCore.QState):
@@ -112,10 +124,8 @@ class State_runLandmarking(QtCore.QState):
     def onEntry(self, e):
         try:
             self.window.count = 0
-            self.window.photosNames = filter(lambda x: isinstance(
-                x, PixmapItem) and x.isVisible(), self.window.ui.scene.items())
-            self.window.photosNames = [i.path for i in self.window.photosNames]
-            if self.window.photosNames == []:
+            photosNames = getPhotosNames(self.window.ui.scene.items())
+            if photosNames == []:
                 raise NoImagesException()
         except NoImagesException, e:
             logging.error(e.message, exc_info=True)
@@ -123,8 +133,6 @@ class State_runLandmarking(QtCore.QState):
                             "Warning",
                             e.message)
         else:
-            self.run()
-
             self.window.ui.myButtonNext = MyButton(
                 "UI/Icons/next.png", "Next ..")
             self.window.ui.myButtonPrev = MyButton(
@@ -137,16 +145,16 @@ class State_runLandmarking(QtCore.QState):
             # TODO make an inner state machine
             self.window.ui.scene.buttonsForChecker(
                 self.window.ui.myButtonNext, self.window.ui.myButtonEdit, self.window.ui.myButtonPrev)
-
+            self.run(photosNames)
             self.window.ui.pushButton_4.setEnabled(True)
 
     def onExit(self, e):
         pass
 
-    def run(self):
+    def run(self, photosNames):
         # TODO clean this
         if not self.window.myFinder:
-            self.window.myFinder = Finder(self.window.photosNames)
+            self.window.myFinder = Finder(photosNames)
             QtGui.QApplication.setOverrideCursor(
                 QtGui.QCursor(QtCore.Qt.WaitCursor))
             self.window.myFinder.findLandmarks()
