@@ -5,6 +5,8 @@ import sip
 sip.setapi('QString', 2)
 
 import os
+import sys
+import logging
 from PyQt4 import QtCore, QtGui
 from UI.pixmapItem import PixmapItem
 from UI.dialogOptions import DialogOptions
@@ -49,7 +51,10 @@ class State_ImageLoading(QtCore.QState):
             if outFileNames == []:
                 raise NoImagesException()
         except NoImagesException, e:
-            print e
+            logging.error(e.message, exc_info=True)
+            QtGui.QMessageBox.warning(self.window,
+                            "Warning",
+                            e.message)
         else:
             self.window.photosNames = outFileNames
             self.drawPeople(outFileNames)
@@ -113,7 +118,10 @@ class State_runLandmarking(QtCore.QState):
             if self.window.photosNames == []:
                 raise NoImagesException()
         except NoImagesException, e:
-            print e
+            logging.error(e.message, exc_info=True)
+            QtGui.QMessageBox.warning(self.window,
+                            "Warning",
+                            e.message)
         else:
             self.run()
 
