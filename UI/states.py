@@ -191,6 +191,7 @@ class State_init_run(State_runLandmarking):
 
 
 class State_foward(State_runLandmarking):
+
     def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
         self.window = window
@@ -203,6 +204,7 @@ class State_foward(State_runLandmarking):
 
 
 class State_back(State_runLandmarking):
+
     def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
         self.window = window
