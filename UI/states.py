@@ -66,7 +66,6 @@ class State_ImageLoading(QtCore.QState):
                                       "Warning",
                                       e.message)
         else:
-            #self.window.photosNames = outFileNames
             self.drawPeople(outFileNames)
             self.window.ui.pushButton_2.setEnabled(True)
 
@@ -81,7 +80,6 @@ class State_ImageLoading(QtCore.QState):
             pix = QtGui.QPixmap(i)
             sca = PixmapItem(pix.scaledToWidth(90), i, self.window.ui.scene)
             sca.setFlags(QtGui.QGraphicsItem.ItemIsSelectable)
-            # self.window.ui.scene.addItem(sca)
             if (self.window.ui.graphicsView.width() < (posx + 100)):
                 posy += sca.pixmap().height() + 10
                 posx = 0
@@ -173,8 +171,6 @@ class State_init_run(QtCore.QState):
             self.window.numberOfLandmarks)
         self.window.drawLandmarks()
 
-        # make small FA for this one
-
 
 class State_foward(QtCore.QState):
 
@@ -215,6 +211,7 @@ class State_back(QtCore.QState):
 
     def onExit(self, e):
         pass
+
 
 class State_edit(QtCore.QState):
 

@@ -131,7 +131,6 @@ class Main_Window(QtGui.QMainWindow):
             qitmp = toQImage(self.images[self.count])
             pix = QtGui.QPixmap(QtGui.QPixmap.fromImage(qitmp))
             sca = PixmapItem(pix.scaledToWidth(310), None, self.ui.scene)
-            # self.ui.scene.addItem(sca)
             self.ui.scene.addItem(proxyTabla)
 
     def loadModel(self, landmarks):
