@@ -58,7 +58,7 @@ class State_ImageLoading(QtCore.QState):
             outFileNames = dialog.getOpenFileNames(self.window, "Open Image",
                                                    os.getcwd(),
                                                    "Image Files (*.png *.jpg *.bmp)")
-            if outFileNames == []:
+            if not outFileNames:
                 raise NoImagesException()
         except NoImagesException, e:
             logging.error(e.message, exc_info=True)
@@ -102,7 +102,7 @@ class State_LanmarkingSelection(QtCore.QState):
     def showPreferences(self):
         """ Dialog for select the anatomic parts to evaluate."""
         try:
-            if getPhotosNames(self.window.ui.scene.items()) == []:
+            if not getPhotosNames(self.window.ui.scene.items()):
                 raise NoImagesException
             else:
                 options = DialogOptions()
