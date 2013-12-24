@@ -50,8 +50,7 @@ class Main_Window(QtGui.QMainWindow):
         self.imageLoad.addTransition(
             self.ui.pushButton_2.clicked, self.landmarkingSelection)
         self.imageLoad.addTransition(self.ui.pushButton_5.clicked, self.quit)
-        self.imageLoad.addTransition(
-            self.ui.pushButton.clicked, self.imageLoad)
+        self.imageLoad.addTransition(self.ui.pushButton.clicked, self.clear)
         self.imageLoad.addTransition(self.ui.pushButton_6.clicked, self.about)
 
         self.landmarkingSelection.addTransition(
@@ -63,6 +62,7 @@ class Main_Window(QtGui.QMainWindow):
         self.landmarkingSelection.addTransition(
             self.ui.pushButton_6.clicked, self.about)
 
+        self.run.addTransition(self.ui.pushButton.clicked, self.clear)
         self.run.addTransition(
             self.ui.pushButton_2.clicked, self.landmarkingSelection)
         self.run.addTransition(self.ui.pushButton_3.clicked, self.run)
@@ -85,6 +85,7 @@ class Main_Window(QtGui.QMainWindow):
         self.about.addTransition(self.ui.pushButton_3.clicked, self.run)
         self.about.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.about.addTransition(self.ui.pushButton_6.clicked, self.about)
+        self.about.addTransition(self.ui.pushButton_4.clicked, self.save)
 
         self.machine.setInitialState(self.init)
         self.machine.start()
