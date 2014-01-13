@@ -13,7 +13,7 @@ from skimage import img_as_ubyte
 class STASM:
 
     def __init__(self):
-        self.stasm = ctypes.cdll.LoadLibrary("Dependencies/libstasm.so")
+        self.stasm = ctypes.cdll.LoadLibrary("Dependencies/stasm/libstasm.so")
         # io.use_plugin('pil')
 
     def s_init(self, pathToData="Dependencies/Data", debug=0):
