@@ -33,6 +33,8 @@ class NolandmarksException(Exception):
 
 class State_Init(QtCore.QState):
 
+    """Initial State for setup the bar-buttons"""
+
     def __init__(self, machine, ui):
         QtCore.QState.__init__(self, machine)
         self.ui = ui
@@ -47,6 +49,9 @@ class State_Init(QtCore.QState):
 
 
 class State_ImageLoading(QtCore.QState):
+
+    """In this state we present the image dialog loading and
+    draw the small pictures"""
 
     def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
@@ -89,6 +94,9 @@ class State_ImageLoading(QtCore.QState):
 
 class State_LanmarkingSelection(QtCore.QState):
 
+    """In this state we select wich landmarks we want to 
+    see in the pictures"""
+
     def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
         self.window = window
@@ -119,6 +127,8 @@ class State_LanmarkingSelection(QtCore.QState):
 
 
 class State_runLandmarking(QtCore.QState):
+
+    """Call the python-STASM bindings for the landmarking"""
 
     def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
@@ -178,16 +188,15 @@ class State_foward(QtCore.QState):
         QtCore.QState.__init__(self, machine)
         self.window = window
 
+
     def onEntry(self, e):
-        """def next(self):
-        if 0 <= self.count < len(self.images) - 1:
-            self.count = self.count + 1
-            self.drawLandmarks()
+        if 0 <= self.window.count < len(self.window.images) - 1:
+            self.window.count += 1
+            self.window.drawLandmarks()
+            if not self.window.ui.myButtonPrev.isEnabled():
+                self.window.ui.myButtonPrev.setEnabled(True)
         else:
-            self.ui.myButtonNext.setEnabled(False)
-        if not self.ui.myButtonPrev.isEnabled():
-            self.ui.myButtonPrev.setEnabled(True)"""
-        pass
+            self.window.ui.myButtonNext.setEnabled(False)
 
     def onExit(self, e):
         pass
@@ -200,14 +209,13 @@ class State_back(QtCore.QState):
         self.window = window
 
     def onEntry(self, e):
-        """if 0 < self.count < len(self.window.images):
-            self.count = self.count - 1
+        if 0 < self.window.count < len(self.window.images):
+            self.window.count -= 1
             self.window.drawLandmarks()
+            if not self.window.ui.myButtonNext.isEnabled():
+                self.window.ui.myButtonNext.setEnabled(True)
         else:
-            self.ui.myButtonPrev.setEnabled(False)
-        if not self.ui.myButtonNext.isEnabled():
-            self.ui.myButtonNext.setEnabled(True)
-        """
+            self.window.ui.myButtonPrev.setEnabled(False)
 
     def onExit(self, e):
         pass
@@ -253,8 +261,16 @@ class State_clear(QtCore.QState):
 
     def onEntry(self, e):
         items = self.window.ui.scene.items()
-        items = filter(lambda x: x.isVisible(), items)
-        map(lambda i: self.window.ui.scene.removeItem(i), items)
+        images = filter(lambda x: x.isVisible() and not isinstance(
+            x, QtGui.QGraphicsProxyWidget), items)
+        buttons = filter(lambda x: x.isVisible() and isinstance(
+            x, QtGui.QGraphicsProxyWidget), items)
+        # remove all the image and tables but hide the buttons
+        # nasty fix
+        map(lambda i: self.window.ui.scene.removeItem(i), images)
+        map(lambda b: b.setVisible(False), buttons)
+        map(lambda b: b.setEnabled(True), buttons)
+
         self.finished.emit()
 
     def onExit(self, e):
