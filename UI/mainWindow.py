@@ -39,6 +39,7 @@ class Main_Window(QtGui.QMainWindow):
 
         self.landn = 77
         self.machine = QtCore.QStateMachine()
+        self.count = None 
 
         # States
         self.init = State_Init(self.machine, self.ui)
@@ -111,14 +112,23 @@ class Main_Window(QtGui.QMainWindow):
         self.run.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.run.addTransition(self.ui.pushButton_6.clicked, self.about)
         # Transitions under run
-        run_init.addTransition(self.ui.myButtonNext.clicked, run_fwd)
         run_init.addTransition(self.ui.myButtonPrev.clicked, run_bck)
         run_init.addTransition(self.ui.myButtonEdit.clicked, run_edit)
+        run_init.addTransition(self.ui.myButtonNext.clicked, run_fwd)
+        
+        run_fwd.addTransition(self.ui.myButtonPrev.clicked, run_bck)
+        run_fwd.addTransition(self.ui.myButtonNext.clicked, run_fwd)
+        run_fwd.addTransition(self.ui.myButtonEdit.clicked, run_edit)
+
+        run_bck.addTransition(self.ui.myButtonPrev.clicked, run_bck)
+        run_bck.addTransition(self.ui.myButtonNext.clicked, run_fwd)
+        run_bck.addTransition(self.ui.myButtonEdit.clicked, run_edit)
 
         self.machine.setInitialState(self.init)
         self.machine.start()
 
     def drawLandmarks(self):
+            #TODO remove this fuction .. translate to new state
             self.myTable = Table(self.numberOfLandmarks, ['x', 'y'])
             myLandmarks = self.myFinder.landmarks[self.count]
             myFilterLandmarks = [myLandmarks[i]
