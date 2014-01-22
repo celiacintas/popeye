@@ -246,7 +246,7 @@ class State_saveLandmarking(QtCore.QState):
                                               os.getcwd(),
                                               "Files (*.txt *.tps *.xls *.cvs)")
         mySaveFile = SaveFile(
-            saveFileName, self.window.myFinder.landmarks, self.window.numberOfLandmarks)
+            self.window.myFinder.fileNames, saveFileName, self.window.myFinder.landmarks, self.window.numberOfLandmarks)
         mySaveFile.save()
 
     def onExit(self, e):
