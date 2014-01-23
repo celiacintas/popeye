@@ -17,20 +17,27 @@ class SaveFile():
         self.filterLandmarks = [[l[i] for i in filterLandmarks]
                                 for l in landmarks]
         self.nfilter = len(filterLandmarks)
-        self.idCodes = map(lambda p: os.path.splitext(basename(p))[0], imagesNames)
+        self.idCodes = map(lambda p: os.path.splitext(basename(p))[0],
+                           imagesNames)
 
     def saveXLS(self, out):
         pass
 
     def saveTXT(self, out):
         # TODO add code name of the ind
-        map(lambda x: np.savetxt(out, x, fmt='%-7.2f'), self.filterLandmarks)
+        map(lambda x: np.savetxt(out, x, fmt='%i %i'), self.filterLandmarks)
 
     def saveCVS(self, out):
+
         pass
 
     def saveMorphoJ(self, out):
-        pass
+        for id in range(len(self.idCodes)):
+            out.write("".join([self.idCodes[id], ' ']))
+            np.savetxt(out, np.array(self.filterLandmarks[id]).reshape(
+                1, len(self.filterLandmarks[id]) * 2),  fmt='%i')
+            # Change the shape for MorphoJ All landmarks in one line per person
+            out.write('\n')
 
     def saveTPS(self, out):
         """
@@ -50,5 +57,5 @@ class SaveFile():
             elif self.ext == ".tps":
                 self.saveTPS(out)
             elif self.ext == ".txt":
-                self.saveTXT(out)
+                self.saveMorphoJ(out)
             out.close()
