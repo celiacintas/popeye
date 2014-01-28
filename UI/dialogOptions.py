@@ -1,10 +1,11 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-
+import os
 from PyQt4 import QtGui
 from opciones_UI import Ui_Dialog
 
+dir = os.path.dirname(__file__)
 
 class DialogOptions(QtGui.QDialog):
 
@@ -15,7 +16,7 @@ class DialogOptions(QtGui.QDialog):
         self.initUI(numberOfLandmarks)
 
     def initUI(self, numberOfLandmarks):
-        pixmap = QtGui.QPixmap("UI/Images/landmarking.jpg")
+        pixmap = QtGui.QPixmap(os.path.join(dir, "Images/landmarking.jpg"))
         for i in range(numberOfLandmarks):
             item = QtGui.QListWidgetItem("%i" % i)
             self.ui.listWidget.addItem(item)
