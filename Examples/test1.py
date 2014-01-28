@@ -18,7 +18,6 @@ def main():
     myStasm = pystasm.STASM()
     myLandmarks = myStasm.s_search_single(FILENAME)
     image = io.imread(FILENAME)
-    print myLandmarks
     for i in range(len(myLandmarks)):
         rr, cc = circle(myLandmarks[i][1], myLandmarks[i][0], 15)
         image[rr, cc] = 1
