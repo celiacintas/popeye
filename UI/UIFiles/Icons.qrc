@@ -1,0 +1,19 @@
+<RCC>
+  <qresource prefix="/icons">
+    <file>../Icons/boton_large1.png</file>
+    <file>../Icons/boton_large2.png</file>
+    <file>../Icons/boton_large3.png</file>
+    <file>../Icons/boton9.png</file>
+    <file>../Icons/exit.png</file>
+    <file>../Icons/icono.png</file>
+    <file>../Icons/images.png</file>
+    <file>../Icons/info.png</file>
+    <file>../Icons/learn.png</file>
+    <file>../Icons/next.png</file>
+    <file>../Icons/others.png</file>
+    <file>../Icons/preferences.png</file>
+    <file>../Icons/prev.png</file>
+    <file>../Icons/run.png</file>
+    <file>../Icons/test.png</file>
+  </qresource>
+</RCC>
