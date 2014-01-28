@@ -3,7 +3,7 @@
 
 import os
 import re
-import pystasm
+import Dependencies.pystasm as pystasm
 import skimage.io as io
 from skimage.draw import circle
 from skimage import img_as_ubyte
