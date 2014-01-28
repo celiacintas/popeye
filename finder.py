@@ -44,7 +44,7 @@ class Finder():
 
 
 def main():
-    myFinder = Finder(["/home/celia/Chile/test.JPG"])
+    myFinder = Finder(["test.JPG"])
     myFinder.findLandmarks()
     myFinder.drawLandmarks()
 

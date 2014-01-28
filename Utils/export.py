@@ -37,7 +37,6 @@ class SaveFile():
             np.savetxt(out, np.array(self.filterLandmarks[id]).reshape(
                 1, len(self.filterLandmarks[id]) * 2),  fmt='%i')
             # Change the shape for MorphoJ All landmarks in one line per person
-            out.write('\n')
 
     def saveTPS(self, out):
         """

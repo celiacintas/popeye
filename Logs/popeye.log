@@ -98,3 +98,38 @@ Traceback (most recent call last):
   File "/home/celia/Documents/CENPAT/popeyeReloaded/UI/states.py", line 65, in onEntry
     raise NoImagesException()
 NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "/home/celia/Documents/CENPAT/popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "/home/celia/Documents/CENPAT/popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must select some landmarks
+Traceback (most recent call last):
+  File "/home/celia/Documents/CENPAT/popeyeReloaded/UI/states.py", line 122, in showPreferences
+    raise NolandmarksException
+NolandmarksException: You must select some landmarks
+ERROR:root:You must select some landmarks
+Traceback (most recent call last):
+  File "/home/celia/Documents/CENPAT/popeyeReloaded/UI/states.py", line 122, in showPreferences
+    raise NolandmarksException
+NolandmarksException: You must select some landmarks
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "/home/celia/Documents/CENPAT/popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "/home/celia/Documents/CENPAT/popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must select some landmarks
+Traceback (most recent call last):
+  File "/home/celia/Documents/CENPAT/popeyeReloaded/UI/states.py", line 122, in showPreferences
+    raise NolandmarksException
+NolandmarksException: You must select some landmarks
