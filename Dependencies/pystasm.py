@@ -10,9 +10,9 @@ import skimage.io as io
 from skimage import img_as_ubyte
 import os
 
-dir = os.path.dirname(__file__)
-filenameStasm = os.path.join(dir, "stasm/libstasm.so")
-filenameData = os.path.join(dir, "Data")
+fileName = os.path.dirname(__file__)
+filenameStasm = os.path.join(fileName, "stasm/libstasm.so")
+filenameData = os.path.join(fileName, "Data")
 
 
 class STASM:
