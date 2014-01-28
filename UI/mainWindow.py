@@ -15,8 +15,6 @@ from ..Utils.qimage2ndarray import toQImage
 from states import *
 
 
-
-
 class Main_Window(QtGui.QMainWindow):
 
     def __init__(self):
@@ -25,7 +23,8 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.setupUi(self)
         fileName = os.path.dirname(__file__)
         palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QPixmap(os.path.join(fileName, "Images/back.png")))
+        brush = QtGui.QBrush(
+            QtGui.QPixmap(os.path.join(fileName, "Images/back.png")))
         palette.setBrush(QtGui.QPalette.Background, brush)
         self.setPalette(palette)
         self.ui.scene = Scene()
@@ -33,13 +32,13 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
         self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
-        
+
         self.ui.myButtonNext = MyButton(
-            os.path.join(fileName,"Icons/next.png"), "Next ..", False)
+            os.path.join(fileName, "Icons/next.png"), "Next ..", False)
         self.ui.myButtonPrev = MyButton(
-            os.path.join(fileName,"Icons/prev.png"), "Prev ..", False)
+            os.path.join(fileName, "Icons/prev.png"), "Prev ..", False)
         self.ui.myButtonEdit = MyButton(
-            os.path.join(fileName,"Icons/learn.png"), "Edit ..", False)
+            os.path.join(fileName, "Icons/learn.png"), "Edit ..", False)
         self.ui.scene.buttonsForChecker(
             self.ui.myButtonNext, self.ui.myButtonEdit,
             self.ui.myButtonPrev)
@@ -47,7 +46,7 @@ class Main_Window(QtGui.QMainWindow):
 
         self.landn = 77
         self.machine = QtCore.QStateMachine()
-        self.count = None 
+        self.count = None
 
         # States
         self.init = State_Init(self.machine, self.ui)
@@ -123,7 +122,7 @@ class Main_Window(QtGui.QMainWindow):
         run_init.addTransition(self.ui.myButtonPrev.clicked, run_bck)
         run_init.addTransition(self.ui.myButtonEdit.clicked, run_edit)
         run_init.addTransition(self.ui.myButtonNext.clicked, run_fwd)
-        
+
         run_fwd.addTransition(self.ui.myButtonPrev.clicked, run_bck)
         run_fwd.addTransition(self.ui.myButtonNext.clicked, run_fwd)
         run_fwd.addTransition(self.ui.myButtonEdit.clicked, run_edit)
@@ -136,7 +135,7 @@ class Main_Window(QtGui.QMainWindow):
         self.machine.start()
 
     def drawLandmarks(self):
-            #TODO remove this fuction .. translate to new state
+            # TODO remove this fuction .. translate to new state
             self.myTable = Table(self.numberOfLandmarks, ['x', 'y'])
             myLandmarks = self.myFinder.landmarks[self.count]
             myFilterLandmarks = [myLandmarks[i]
@@ -156,4 +155,3 @@ class Main_Window(QtGui.QMainWindow):
         for i in range(len(landmarks)):
             for j in range(len(landmarks[0])):
                 myModel[i, j] = float(landmarks[i][j])
-

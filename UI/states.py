@@ -188,7 +188,6 @@ class State_foward(QtCore.QState):
         QtCore.QState.__init__(self, machine)
         self.window = window
 
-
     def onEntry(self, e):
         if 0 <= self.window.count < len(self.window.images) - 1:
             self.window.count += 1
