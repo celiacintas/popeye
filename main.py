@@ -10,8 +10,8 @@ import logging
 from PyQt4 import QtGui, QtCore
 from UI.mainWindow import Main_Window
 
-dir = os.path.dirname(__file__)
-filenameLogs = os.path.join(dir, 'Logs/popeye.log')
+filenameLogs = os.path.join(os.path.dirname(__file__), 'Logs/popeye.log')
+
 
 def main():
 

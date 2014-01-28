@@ -3,13 +3,6 @@
 
 
 import os
-import sys
-
-#path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-#if not path in sys.path:
-#    sys.path.insert(1, path)
-#del path
-
 import matplotlib.pyplot as plt
 from ..Dependencies import pystasm
 import skimage.io as io
@@ -18,10 +11,10 @@ from skimage import img_as_ubyte
 import numpy as np
 
 
+FILENAME = os.path.join(os.path.dirname(__file__), "../Tests/Data/test.jpg")
+
 
 def main():
-    FILENAME = "../Tests/Data/test.jpg"
-
     myStasm = pystasm.STASM()
     myLandmarks = myStasm.s_search_single(FILENAME)
     image = io.imread(FILENAME)

@@ -14,7 +14,7 @@ from table import Table
 from ..Utils.qimage2ndarray import toQImage
 from states import *
 
-dir = os.path.dirname(__file__)
+
 
 
 class Main_Window(QtGui.QMainWindow):
@@ -23,8 +23,9 @@ class Main_Window(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        fileName = os.path.dirname(__file__)
         palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QPixmap(os.path.join(dir, "Images/back.png")))
+        brush = QtGui.QBrush(QtGui.QPixmap(os.path.join(fileName, "Images/back.png")))
         palette.setBrush(QtGui.QPalette.Background, brush)
         self.setPalette(palette)
         self.ui.scene = Scene()
@@ -32,12 +33,13 @@ class Main_Window(QtGui.QMainWindow):
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
         self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
+        
         self.ui.myButtonNext = MyButton(
-            os.path.join(dir,"Icons/next.png"), "Next ..", False)
+            os.path.join(fileName,"Icons/next.png"), "Next ..", False)
         self.ui.myButtonPrev = MyButton(
-            os.path.join(dir,"Icons/prev.png"), "Prev ..", False)
+            os.path.join(fileName,"Icons/prev.png"), "Prev ..", False)
         self.ui.myButtonEdit = MyButton(
-            os.path.join(dir,"Icons/learn.png"), "Edit ..", False)
+            os.path.join(fileName,"Icons/learn.png"), "Edit ..", False)
         self.ui.scene.buttonsForChecker(
             self.ui.myButtonNext, self.ui.myButtonEdit,
             self.ui.myButtonPrev)

@@ -1,8 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-import os
-import re
 import Dependencies.pystasm as pystasm
 import skimage.io as io
 from skimage.draw import circle
