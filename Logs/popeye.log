@@ -138,3 +138,8 @@ Traceback (most recent call last):
   File "popeyeReloaded/UI/states.py", line 122, in showPreferences
     raise NolandmarksException
 NolandmarksException: You must select some landmarks
+ERROR:root:You must select some landmarks
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 122, in showPreferences
+    raise NolandmarksException
+NolandmarksException: You must select some landmarks
