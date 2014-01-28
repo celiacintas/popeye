@@ -6,13 +6,15 @@ sip.setapi('QString', 2)
 
 import os
 import sys
-from finder import Finder
+from ..finder import Finder
 from PyQt4 import QtCore, QtGui
-from UI.popEye_UI import Ui_MainWindow
-from UI.myScene import Scene
-from UI.table import Table
-from Utils.qimage2ndarray import toQImage
+from popEye_UI import Ui_MainWindow
+from myScene import Scene
+from table import Table
+from ..Utils.qimage2ndarray import toQImage
 from states import *
+
+dir = os.path.dirname(__file__)
 
 
 class Main_Window(QtGui.QMainWindow):
@@ -21,17 +23,21 @@ class Main_Window(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QPixmap(os.path.join(dir, "Images/back.png")))
+        palette.setBrush(QtGui.QPalette.Background, brush)
+        self.setPalette(palette)
         self.ui.scene = Scene()
         self.ui.scene.setSceneRect(0, 0, 700, 300)
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
         self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
         self.ui.myButtonNext = MyButton(
-            "UI/Icons/next.png", "Next ..", False)
+            os.path.join(dir,"Icons/next.png"), "Next ..", False)
         self.ui.myButtonPrev = MyButton(
-            "UI/Icons/prev.png", "Prev ..", False)
+            os.path.join(dir,"Icons/prev.png"), "Prev ..", False)
         self.ui.myButtonEdit = MyButton(
-            "UI/Icons/learn.png", "Edit ..", False)
+            os.path.join(dir,"Icons/learn.png"), "Edit ..", False)
         self.ui.scene.buttonsForChecker(
             self.ui.myButtonNext, self.ui.myButtonEdit,
             self.ui.myButtonPrev)
