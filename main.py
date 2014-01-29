@@ -8,7 +8,7 @@ import sys
 import os
 import logging
 from PyQt4 import QtGui
-from popeyeReloaded.UI.mainWindow import Main_Window
+from popeyeReloaded.UI.mainwindow import MainWindow
 
 FILELOGS = os.path.join(os.path.dirname(__file__), 'Logs/popeye.log')
 
@@ -18,7 +18,7 @@ def main():
     logging.basicConfig(filename=FILELOGS)  # , level=logging.INFO)
     logging.info('Popeye Started')
     app = QtGui.QApplication(sys.argv)
-    window = Main_Window()
+    window = MainWindow()
     window.move(300, 100)
     window.show()
 

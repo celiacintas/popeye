@@ -73,7 +73,7 @@ class StateImageLoading(QtCore.QState):
                                       "Warning",
                                       exc.message)
         else:
-            self.drawPeople(outFileNames)
+            self.draw_people(outFileNames)
             self.window.ui.pushButton_2.setEnabled(True)
 
     def onExit(self, event):
@@ -81,7 +81,7 @@ class StateImageLoading(QtCore.QState):
 
         self.window.myfinder = None
 
-    def drawPeople(self, fileNames):
+    def draw_people(self, fileNames):
         """Show in the scene the photos."""
 
         # TODO fix this
@@ -186,7 +186,7 @@ class StateInitRun(QtCore.QState):
 
         self.window.images = self.window.myfinder.draw_landmarks(
             self.window.numberOfLandmarks)
-        self.window.drawLandmarks()
+        self.window.draw_landmarks()
 
 
 class StateFoward(QtCore.QState):
@@ -199,7 +199,7 @@ class StateFoward(QtCore.QState):
     def onEntry(self, event):
         if 0 <= self.window.count < len(self.window.images) - 1:
             self.window.count += 1
-            self.window.drawLandmarks()
+            self.window.draw_landmarks()
             if not self.window.ui.myButtonPrev.isEnabled():
                 self.window.ui.myButtonPrev.setEnabled(True)
         else:
@@ -219,7 +219,7 @@ class StateBack(QtCore.QState):
     def onEntry(self, event):
         if 0 < self.window.count < len(self.window.images):
             self.window.count -= 1
-            self.window.drawLandmarks()
+            self.window.draw_landmarks()
             if not self.window.ui.myButtonNext.isEnabled():
                 self.window.ui.myButtonNext.setEnabled(True)
         else:

@@ -143,3 +143,48 @@ Traceback (most recent call last):
   File "popeyeReloaded/UI/states.py", line 122, in showPreferences
     raise NolandmarksException
 NolandmarksException: You must select some landmarks
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
+ERROR:root:You must load some images
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 67, in onEntry
+    raise NoImagesException()
+NoImagesException: You must load some images
