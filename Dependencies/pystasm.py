@@ -10,22 +10,25 @@ import skimage.io as io
 from skimage import img_as_ubyte
 import os
 
-fileName = os.path.dirname(__file__)
-filenameStasm = os.path.join(fileName, "stasm/libstasm.so")
-filenameData = os.path.join(fileName, "Data")
+FILENAMESTASM = os.path.join(os.path.dirname(__file__), "stasm/libstasm.so")
+FILENAMEDATA = os.path.join(os.path.dirname(__file__), "Data")
 
 
-class STASM:
+class STASM(object):
+    """This is a Python wrapper for the STASM library"""
 
     def __init__(self):
-        self.stasm = ctypes.cdll.LoadLibrary(filenameStasm)
-        # io.use_plugin('pil')
+        """Loads de .so file """
+        self.stasm = ctypes.cdll.LoadLibrary(FILENAMESTASM)
 
-    def s_init(self, pathToData=filenameData, debug=0):
-        self.stasm.stasm_init(pathToData, debug)
+    def s_init(self, path2data=FILENAMEDATA, debug=0):
+        """Gives the location of the Haar Cascade files"""
+        self.stasm.stasm_init(path2data, debug)
 
-    def s_search_single(self, fileName, numberLandmarks=77, pathToData=filenameData):
-        image = img_as_ubyte(io.imread(fileName, as_grey=True))
+    def s_search_single(self, filename, numberlandmarks=77,
+                        path2data=FILENAMEDATA):
+        """Search face and landmarks in picture"""
+        image = img_as_ubyte(io.imread(filename, as_grey=True))
 
         self.stasm.stasm_search_single.restypes = [ctypes.c_int]
         self.stasm.stasm_search_single.argtypes = [ctypes.POINTER(
@@ -37,15 +40,13 @@ class STASM:
             ctypes.POINTER(ctypes.c_char),
             ctypes.POINTER(ctypes.c_char)]
         foundface = ctypes.c_int()
-        pointer_foundface = ctypes.pointer(foundface)
-        xys = 2 * numberLandmarks
+        xys = 2 * numberlandmarks
         landmarks = (ctypes.c_float * xys)()
 
-        test = self.stasm.stasm_search_single(
-            ctypes.byref(foundface), landmarks,
+        self.stasm.stasm_search_single(ctypes.byref(foundface), landmarks,
             image.ctypes.data_as(ctypes.POINTER(ctypes.c_char)),
             ctypes.c_int(image.shape[1]), ctypes.c_int(image.shape[0]),
-            fileName, filenameData)
+            filename, FILENAMEDATA)
         points = np.array(list(landmarks)).reshape((77, 2))
 
         return points
@@ -63,18 +64,22 @@ class STASM:
         pass
 
     def s_force_points_into_image(self):
+        """Force landmarks into image boundary"""
         pass
 
     def s_convert_shape(self):
+        """Convert stasm 77 to 77=nochange
+        76=stasm3 68=xm2vts 22=ar 20=bioid 17=me17"""
         pass
 
 #-----------------------------------------------------------------
 
 
 def main():
-    myStasm = STASM()
-    myStasm.s_init()
-    landmarks_found = myStasm.s_search_single("/home/celia/Chile/test.JPG")
+    #home made test TODO make unitttest
+    mystasm = STASM()
+    mystasm.s_init()
+    landmarks_found = mystasm.s_search_single("test.JPG")
     print landmarks_found
 
 if __name__ == '__main__':
