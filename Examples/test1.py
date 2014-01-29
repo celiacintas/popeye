@@ -1,7 +1,8 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-"""In this """
+"""In this example we can see how to call 
+the s_search_single fuction of STASM from Python """
 
 import os
 import matplotlib.pyplot as plt
