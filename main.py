@@ -7,18 +7,17 @@ sip.setapi('QString', 2)
 import sys
 import os
 import logging
-from PyQt4 import QtGui, QtCore
-from UI.mainWindow import Main_Window
+from PyQt4 import QtGui
+from popeyeReloaded.UI.mainWindow import Main_Window
 
-filenameLogs = os.path.join(os.path.dirname(__file__), 'Logs/popeye.log')
+FILELOGS = os.path.join(os.path.dirname(__file__), 'Logs/popeye.log')
 
 
 def main():
-
-    logging.basicConfig(filename=filenameLogs)  # , level=logging.INFO)
+    """Activate the logging and run PopEye!!"""
+    logging.basicConfig(filename=FILELOGS)  # , level=logging.INFO)
     logging.info('Popeye Started')
     app = QtGui.QApplication(sys.argv)
-
     window = Main_Window()
     window.move(300, 100)
     window.show()
