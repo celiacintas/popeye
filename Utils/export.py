@@ -20,7 +20,7 @@ class SaveFile(object):
         self.filterlandmarks = [[l[i] for i in filterlandmarks]
                                 for l in landmarks]
         self.nfilter = len(filterlandmarks)
-        self.idcodes = [os.path.splitext(basename(p))[0] for p in imagesnames]
+        self.idcodes = map(lambda p:os.path.splitext(basename(p))[0], imagesnames)
 
     def savexls(self, out):
         """Save landmarks in spreadsheet"""

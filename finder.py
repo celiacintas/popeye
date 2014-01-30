@@ -33,13 +33,13 @@ class Finder(object):
         Get all the landmarks of the selected images.
         """
         self.landmarks = np.array(
-            [self.mystasm.s_search_single(name) for name in self.filenames])
+            map(self.mystasm.s_search_single, self.filenames))
 
     def draw_landmarks(self, pos_landmarks):
         """
         Draw the selected landmarks and return the modified image.
         """
-        images = [io.imread(f) for f in self.filenames]
+        images = map(io.imread, self.filenames)
         for i in range(len(images)):
             for j in pos_landmarks:
                 radio, center = circle(
