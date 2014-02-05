@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-import popeyeReloaded.Dependencies.pystasm as pystasm
+import popeye.dependencies.pystasm as pystasm
 import skimage.io as io
 from skimage.draw import circle
 import numpy as np

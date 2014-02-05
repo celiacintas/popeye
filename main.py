@@ -8,9 +8,9 @@ import sys
 import os
 import logging
 from PyQt4 import QtGui
-from popeyeReloaded.UI.mainwindow import MainWindow
+from popeye.UI.mainwindow import MainWindow
 
-FILELOGS = os.path.join(os.path.dirname(__file__), 'Logs/popeye.log')
+FILELOGS = os.path.join(os.path.dirname(__file__), 'logs/popeye.log')
 
 
 def main():

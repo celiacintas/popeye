@@ -1,16 +1,19 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
+#!/usr/bin/env coding
+# -*- python2: utf-8 -*-
+
 import sip
 sip.setapi('QString', 2)
 
 import os
 import logging
 from PyQt4 import QtCore, QtGui
-from popeyeReloaded.UI.pixmapItem import PixmapItem
-from popeyeReloaded.UI.dialogOptions import DialogOptions
+from popeye.UI.pixmapItem import PixmapItem
+from popeye.UI.dialogOptions import DialogOptions
 from ..finder import Finder
-from popeyeReloaded.Utils.export import SaveFile
+from popeye.utils.export import SaveFile
 
 
 GETPHOTOSNAMES = lambda items: [i.path for i in filter(

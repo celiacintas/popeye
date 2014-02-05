@@ -188,3 +188,8 @@ Traceback (most recent call last):
   File "popeyeReloaded/UI/states.py", line 67, in onEntry
     raise NoImagesException()
 NoImagesException: You must load some images
+ERROR:root:You must select some landmarks
+Traceback (most recent call last):
+  File "popeyeReloaded/UI/states.py", line 128, in show_preferences
+    raise NolandmarksException
+NolandmarksException: You must select some landmarks

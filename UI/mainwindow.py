@@ -6,13 +6,13 @@ sip.setapi('QString', 2)
 
 import os
 from PyQt4 import QtCore, QtGui
-from popeyeReloaded.UI.popEye_UI import Ui_MainWindow
-from popeyeReloaded.UI.myScene import Scene
-from popeyeReloaded.UI.table import Table
-from popeyeReloaded.UI.myButton import MyButton
-from popeyeReloaded.UI.pixmapItem import PixmapItem
-from ..Utils.qimage2ndarray import toqimage
-from popeyeReloaded.UI.states import (StateInit, StateImageLoading,
+from popeye.UI.popEye_UI import Ui_MainWindow
+from popeye.UI.myScene import Scene
+from popeye.UI.table import Table
+from popeye.UI.myButton import MyButton
+from popeye.UI.pixmapItem import PixmapItem
+from ..utils.qimage2ndarray import toqimage
+from popeye.UI.states import (StateInit, StateImageLoading,
                                      StateLanmarkingSelection,
                                      StateSaveLandmarking,
                                      StateClear, StateExit,
