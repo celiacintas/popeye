@@ -27,6 +27,8 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.settings = QtCore.QSettings()
+        self.settings.setValue("last_dir", os.getcwd())
         filename = os.path.dirname(__file__)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(

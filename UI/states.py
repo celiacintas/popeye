@@ -67,7 +67,7 @@ class StateImageLoading(QtCore.QState):
         dialog = QtGui.QFileDialog()
         try:
             outFileNames = dialog.getOpenFileNames(self.window, "Open Image",
-                           os.getcwd(), "Image Files (*.png *.jpg *.bmp)")
+                           self.window.settings.value("last_dir").toString(), "Image Files (*.png *.jpg *.bmp)")
             if not outFileNames:
                 raise NoImagesException()
         except NoImagesException, exc:
@@ -76,6 +76,7 @@ class StateImageLoading(QtCore.QState):
                                       "Warning",
                                       exc.message)
         else:
+            self.window.settings.setValue("last_dir", os.path.split(outFileNames[0]))
             self.draw_people(outFileNames)
             self.window.ui.pushButton_2.setEnabled(True)
 
