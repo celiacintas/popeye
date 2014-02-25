@@ -39,7 +39,7 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.scene.setSceneRect(0, 0, 700, 300)
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
-        self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
+        #self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
 
         self.ui.myButtonNext = MyButton(
             os.path.join(filename, "Icons/next.png"), "Next ..", False)

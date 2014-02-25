@@ -77,7 +77,7 @@ class StateImageLoading(QtCore.QState):
                                       exc.message)
         else:
             self.window.settings.setValue("last_dir", os.path.split(outFileNames[0]))
-            self.draw_people(outFileNames)
+            self.draw_little_people(outFileNames)
             self.window.ui.pushButton_2.setEnabled(True)
 
     def onExit(self, event):
@@ -85,7 +85,8 @@ class StateImageLoading(QtCore.QState):
 
         self.window.myfinder = None
 
-    def draw_people(self, fileNames):
+
+    def draw_little_people(self, fileNames):
         """Show in the scene the photos."""
 
         # TODO fix this
@@ -97,6 +98,9 @@ class StateImageLoading(QtCore.QState):
             if self.window.ui.graphicsView.width() < (posx + 100):
                 posy += sca.pixmap().height() + 10
                 posx = 0
+                if posy >= self.window.ui.scene.height() - posy:
+                    self.window.ui.scene.setSceneRect(0, 0, self.window.ui.scene.width(), 
+                                         self.window.ui.scene.height() + sca.pixmap().height() + 10)
             sca.setPos(posx, posy)
             posx += sca.pixmap().width() + 10
 
@@ -277,6 +281,7 @@ class StateClear(QtCore.QState):
         self.window = window
 
     def onEntry(self, event):
+        self.window.ui.scene.setSceneRect(0, 0, self.window.ui.scene.width(), 300)
         items = self.window.ui.scene.items()
         images = filter(lambda x: x.isVisible() and not isinstance(
             x, QtGui.QGraphicsProxyWidget), items)
