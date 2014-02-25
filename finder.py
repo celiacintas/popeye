@@ -5,6 +5,7 @@ import popeye.dependencies.pystasm as pystasm
 import skimage.io as io
 from skimage.draw import circle
 import numpy as np
+import logging
 
 
 class Finder(object):
@@ -40,21 +41,16 @@ class Finder(object):
         Draw the selected landmarks and return the modified image.
         """
         images = map(io.imread, self.filenames)
-        for i in range(len(images)):
-            for j in pos_landmarks:
-                radio, center = circle(
-                    self.landmarks[i][j][1], self.landmarks[i][j][0], 15)
-                images[i][radio, center] = 1
-        return images
+        try:
+            for i in range(len(images)):
+                for j in pos_landmarks:
+                    radio, center = circle(
+                        self.landmarks[i][j][1], self.landmarks[i][j][0], 15)
+                    images[i][radio, center] = 1
+        except IndexError, exc:
+            logging.error(exc.message, exc_info=True)
+            raise
+        else:
+            return images
 
 
-def main():
-    """
-    Home made test #TODO pass to unittest
-    """
-    myfinder = Finder(["test.JPG"])
-    myfinder.find_landmarks()
-    myfinder.draw_landmarks([i for i in range(77)])
-
-if __name__ == '__main__':
-    main()
