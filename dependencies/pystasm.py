@@ -9,6 +9,7 @@ import numpy as np
 import skimage.io as io
 from skimage import img_as_ubyte
 import os
+import logging
 
 F = os.path.dirname(__file__)
 FILENAMESTASM = os.path.join(F, "stasm/libstasm.so")
@@ -29,7 +30,12 @@ class STASM(object):
     def s_search_single(self, filename, numberlandmarks=77,
                         path2data=FILENAMEDATA):
         """Search face and landmarks in picture"""
-        image = img_as_ubyte(io.imread(filename, as_grey=True))
+        try:
+            image = img_as_ubyte(io.imread(filename, as_grey=True))
+            
+        except IOError, exc:
+            logging.error(exc.message, exc_info=True)
+            raise IOError
 
         self.stasm.stasm_search_single.restypes = [ctypes.c_int]
         self.stasm.stasm_search_single.argtypes = [ctypes.POINTER(
