@@ -1,9 +1,6 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
-#!/usr/bin/env coding
-# -*- python2: utf-8 -*-
-
 import sip
 sip.setapi('QString', 2)
 
