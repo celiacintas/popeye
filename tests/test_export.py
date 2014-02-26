@@ -31,16 +31,3 @@ def test_wrong_extension():
         mysave = SaveFile([FILENAMEDATA], FILEDATA_OUT_WRONG, np.array([[[1, 2], [1, 3], [3, 4]]]), [1, 2])
         mysave.save()
 
-"""    
-def test_wrong_draw_landmarks():
-    with pytest.raises(IndexError) as excinfo:
-        myfinder = Finder([FILENAMEDATA])
-        myfinder.find_landmarks()
-        images = myfinder.draw_landmarks([i for i in range(np.random.randint(78, 200))])
-
-
-mysavefile = SaveFile(
-            self.window.myfinder.filenames, savefilename,
-            self.window.myfinder.landmarks, self.window.numberOfLandmarks)
-        mysavefile.save()
-"""
