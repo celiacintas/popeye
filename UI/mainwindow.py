@@ -152,7 +152,7 @@ class MainWindow(QtGui.QMainWindow):
         self.run_bck.addTransition(self.ui.myButtonNext.clicked, self.run_fwd)
         self.run_bck.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
 
-    def draw_landmarks(self):
+    def draw_landmarks_in_scene(self):
         """Put the landmarked images in the scene and load a table
         with the (nl, x, y)"""
         # TODO remove this fuction .. translate to new state

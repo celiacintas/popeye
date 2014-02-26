@@ -17,6 +17,7 @@ GETPHOTOSNAMES = lambda items: [i.path for i in filter(
     lambda x: isinstance(x, PixmapItem) and x.isVisible(), items)]
 
 
+
 class NoImagesException(Exception):
     """Exception for no images loaded"""
 
@@ -74,7 +75,10 @@ class StateImageLoading(QtCore.QState):
                                       exc.message)
         else:
             self.window.settings.setValue("last_dir", os.path.split(outFileNames[0]))
+            QtGui.QApplication.setOverrideCursor(
+                QtGui.QCursor(QtCore.Qt.WaitCursor))
             self.draw_little_people(outFileNames)
+            QtGui.QApplication.restoreOverrideCursor()
             self.window.ui.pushButton_2.setEnabled(True)
 
     def onExit(self, event):
@@ -180,8 +184,16 @@ class StateInitRun(QtCore.QState):
     def onExit(self, event):
         pass
 
+    def clear(self):
+        #TODO this has to be in clean state
+        #FIX THIS!
+        items = self.window.ui.scene.items()
+        images = filter(lambda x: x.isVisible() and not isinstance(
+            x, QtGui.QGraphicsProxyWidget), items)
+        map(lambda i: self.window.ui.scene.removeItem(i), images)
+        self.window.ui.scene.setSceneRect(0, 0, self.window.ui.scene.width(), 300)
+
     def run(self, photosnames):
-        # TODO clean this
         if not self.window.myfinder:
             self.window.myfinder = Finder(photosnames)
             QtGui.QApplication.setOverrideCursor(
@@ -191,7 +203,8 @@ class StateInitRun(QtCore.QState):
 
         self.window.images = self.window.myfinder.draw_landmarks(
             self.window.numberOfLandmarks)
-        self.window.draw_landmarks()
+        self.clear()
+        self.window.draw_landmarks_in_scene()
 
 
 class StateFoward(QtCore.QState):
@@ -204,7 +217,7 @@ class StateFoward(QtCore.QState):
     def onEntry(self, event):
         if 0 <= self.window.count < len(self.window.images) - 1:
             self.window.count += 1
-            self.window.draw_landmarks()
+            self.window.draw_landmarks_in_scene()
             if not self.window.ui.myButtonPrev.isEnabled():
                 self.window.ui.myButtonPrev.setEnabled(True)
         else:
@@ -224,7 +237,7 @@ class StateBack(QtCore.QState):
     def onEntry(self, event):
         if 0 < self.window.count < len(self.window.images):
             self.window.count -= 1
-            self.window.draw_landmarks()
+            self.window.draw_landmarks_in_scene()
             if not self.window.ui.myButtonNext.isEnabled():
                 self.window.ui.myButtonNext.setEnabled(True)
         else:
@@ -278,7 +291,7 @@ class StateClear(QtCore.QState):
         self.window = window
 
     def onEntry(self, event):
-        self.window.ui.scene.setSceneRect(0, 0, self.window.ui.scene.width(), 300)
+
         items = self.window.ui.scene.items()
         images = filter(lambda x: x.isVisible() and not isinstance(
             x, QtGui.QGraphicsProxyWidget), items)
@@ -289,6 +302,7 @@ class StateClear(QtCore.QState):
         map(lambda i: self.window.ui.scene.removeItem(i), images)
         map(lambda b: b.setVisible(False), buttons)
         map(lambda b: b.setEnabled(True), buttons)
+        self.window.ui.scene.setSceneRect(0, 0, self.window.ui.scene.width(), 300)
 
         self.finished.emit()
 
