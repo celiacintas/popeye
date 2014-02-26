@@ -4,7 +4,13 @@
 import os
 from os.path import basename
 import numpy as np
+import logging
 
+class NoExtensionKnowException(Exception):
+    """Exception for no images loaded"""
+
+    def __init__(self):
+        Exception.__init__(self, "Unknown file extension")
 
 class SaveFile(object):
 
@@ -66,10 +72,17 @@ class SaveFile(object):
         """Dependending on the extension file name .. the save
         that we want to call"""
         with open(''.join([self.name, self.ext]), 'w') as out:
-            if self.ext == ".xls":
-                self.savexls(out)
-            elif self.ext == ".tps":
-                self.savetps(out)
-            elif self.ext == ".txt":
-                self.savemorphoj(out)
-            out.close()
+            try:
+                if self.ext == ".xls":
+                    self.savexls(out)
+                elif self.ext == ".tps":
+                    self.savetps(out)
+                elif self.ext == ".txt":
+                    self.savemorphoj(out)
+                else:
+                    raise NoExtensionKnowException
+                out.close()
+                            
+            except NoExtensionKnowException, exc:
+                logging.error(exc.message, exc_info=True)
+                raise
