@@ -20,7 +20,6 @@ from popeye.UI.states import (StateInit, StateImageLoading,
                                      StateInitRun, StateFoward,
                                      StateBack, StateEdit)
 
-
 class MainWindow(QtGui.QMainWindow):
 
     def __init__(self):
@@ -39,8 +38,14 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.scene.setSceneRect(0, 0, 700, 300)
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
-        #self.ui.graphicsView.setDragMode(QtGui.QGraphicsView.ScrollHandDrag)
+        self.create_special_buttons(filename)
+        self.ui.graphicsView.show()
 
+        self.landn = 77
+        self.count = None
+        self.create_machine()
+
+    def create_special_buttons(self, filename):
         self.ui.myButtonNext = MyButton(
             os.path.join(filename, "Icons/next.png"), "Next ..", False)
         self.ui.myButtonPrev = MyButton(
@@ -50,11 +55,6 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.scene.buttonsForChecker(
             self.ui.myButtonNext, self.ui.myButtonEdit,
             self.ui.myButtonPrev)
-        self.ui.graphicsView.show()
-
-        self.landn = 77
-        self.count = None
-        self.create_machine()
 
     def create_machine(self):
         self.machine = QtCore.QStateMachine()
@@ -87,6 +87,11 @@ class MainWindow(QtGui.QMainWindow):
     def create_transitions(self):
         """Assign the trasintion to the SM according to
         the  behavior of the GUI"""
+        #home made QEvent transition (from future fix it)
+        """clean_to_run = StringTransition("Hello")
+        clean_to_run.setTargetState(self.run)
+        self.clear.addTransition(clean_to_run)
+        """
         # Transitions
         self.init.addTransition(self.ui.pushButton.clicked, self.image_load)
         self.init.addTransition(self.ui.pushButton_5.clicked, self.quit)
@@ -175,3 +180,20 @@ def load_model(landmarks, mytable):
     for i in range(len(landmarks)):
         for j in range(len(landmarks[0])):
             mymodel[i, j] = float(landmarks[i][j])
+
+"""class StringEvent(QtCore.QEvent):
+    def __init__(self, string):
+       QtCore.QEvent.__init__(self, QtCore.QEvent.User + 1)
+       self.value = string
+
+
+class StringTransition(QtCore.QAbstractTransition):
+    def __init__(self, string):
+        QtCore.QAbstractTransition.__init__(self)
+        self.value = string
+
+    def eventTest(event):
+        if event.type() != QtCore.QEvent.type(QtCore.QEvent.User + 1):
+            return False
+        return self.value == event.value
+"""
