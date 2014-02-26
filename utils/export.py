@@ -82,7 +82,8 @@ class SaveFile(object):
                 else:
                     raise NoExtensionKnowException
                 out.close()
-                            
+
             except NoExtensionKnowException, exc:
+                os.remove(''.join([self.name, self.ext]))
                 logging.error(exc.message, exc_info=True)
                 raise
