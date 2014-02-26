@@ -87,3 +87,6 @@ class SaveFile(object):
                 os.remove(''.join([self.name, self.ext]))
                 logging.error(exc.message, exc_info=True)
                 raise
+            except IOError, exc:
+                logging.error(exc.message, exc_info=True)
+                raise

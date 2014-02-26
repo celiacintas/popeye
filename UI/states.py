@@ -272,11 +272,18 @@ class StateSaveLandmarking(QtCore.QState):
         dialog = QtGui.QFileDialog()
         savefilename = dialog.getSaveFileName(self.window, "Save File",
                                               os.getcwd(),
+        
                                               "Files (*.txt *.tps *.xls *.cvs)")
-        mysavefile = SaveFile(
-            self.window.myfinder.filenames, savefilename,
-            self.window.myfinder.landmarks, self.window.numberOfLandmarks)
-        mysavefile.save()
+        try:
+            mysavefile = SaveFile(
+                self.window.myfinder.filenames, savefilename,
+                self.window.myfinder.landmarks, self.window.numberOfLandmarks)
+            mysavefile.save()
+        except IOError, exc:
+            logging.error(exc.message, exc_info=True)
+            QtGui.QMessageBox.warning(self.window,
+                                      "Warning",
+                                      "You have to choose a filename for the output")
 
     def onExit(self, event):
         pass

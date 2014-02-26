@@ -31,3 +31,8 @@ def test_wrong_extension():
         mysave = SaveFile([FILENAMEDATA], FILEDATA_OUT_WRONG, np.array([[[1, 2], [1, 3], [3, 4]]]), [1, 2])
         mysave.save()
 
+def test_empty_extension():
+    with pytest.raises(IOError) as excinfo:
+        mysave = SaveFile([FILENAMEDATA], "", np.array([[[1, 2], [1, 3], [3, 4]]]), [1, 2])
+        mysave.save()
+
