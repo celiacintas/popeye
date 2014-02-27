@@ -176,6 +176,9 @@ class StateInitRun(QtCore.QState):
                                       e.message)
         else:
             self.run(photosnames)
+            self.window.ui.myButtonPrev.setEnabled(True)
+            self.window.ui.myButtonNext.setEnabled(True)
+            self.window.ui.myButtonEdit.setEnabled(True)
             self.window.ui.myButtonPrev.setVisible(True)
             self.window.ui.myButtonNext.setVisible(True)
             self.window.ui.myButtonEdit.setVisible(True)
@@ -296,6 +299,7 @@ class StateClear(QtCore.QState):
     def __init__(self, machine, window):
         QtCore.QState.__init__(self, machine)
         self.window = window
+        self.machine = machine
 
     def onEntry(self, event):
 
@@ -315,6 +319,7 @@ class StateClear(QtCore.QState):
 
     def onExit(self, event):
         pass
+
 
 
 class StateAbout(QtCore.QState):

@@ -102,7 +102,7 @@ class MainWindow(QtGui.QMainWindow):
         self.image_load.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.image_load.addTransition(self.ui.pushButton.clicked, self.clear)
         self.image_load.addTransition(self.ui.pushButton_6.clicked, self.about)
-
+        
         self.landmarking_selection.addTransition(
             self.ui.pushButton_2.clicked, self.landmarking_selection)
         self.landmarking_selection.addTransition(
@@ -111,6 +111,11 @@ class MainWindow(QtGui.QMainWindow):
             self.ui.pushButton_5.clicked, self.quit)
         self.landmarking_selection.addTransition(
             self.ui.pushButton_6.clicked, self.about)
+        # for the inner machine loop of <- ->
+        self.landmarking_selection.addTransition(self.ui.myButtonPrev.clicked, self.run_bck)
+        self.landmarking_selection.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
+        self.landmarking_selection.addTransition(self.ui.myButtonNext.clicked, self.run_fwd)
+
         self.save.addTransition(self.ui.pushButton_4.clicked, self.save)
         self.save.addTransition(
             self.ui.pushButton_2.clicked, self.landmarking_selection)
@@ -118,6 +123,10 @@ class MainWindow(QtGui.QMainWindow):
         self.save.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.save.addTransition(self.ui.pushButton_6.clicked, self.about)
         self.save.addTransition(self.ui.pushButton_3.clicked, self.run)
+        # for the inner machine loop of <- ->
+        self.save.addTransition(self.ui.myButtonPrev.clicked, self.run_bck)
+        self.save.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
+        self.save.addTransition(self.ui.myButtonNext.clicked, self.run_fwd)
 
         self.clear.addTransition(self.clear.finished, self.image_load)
 
@@ -128,6 +137,10 @@ class MainWindow(QtGui.QMainWindow):
         self.about.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.about.addTransition(self.ui.pushButton_6.clicked, self.about)
         self.about.addTransition(self.ui.pushButton_4.clicked, self.save)
+        # for the inner machine loop of <- ->
+        self.about.addTransition(self.ui.myButtonPrev.clicked, self.run_bck)
+        self.about.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
+        self.about.addTransition(self.ui.myButtonNext.clicked, self.run_fwd)
 
         self.quit.addTransition(self.ui.pushButton.clicked, self.clear)
         self.quit.addTransition(
@@ -136,6 +149,10 @@ class MainWindow(QtGui.QMainWindow):
         self.quit.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.quit.addTransition(self.ui.pushButton_6.clicked, self.about)
         self.quit.addTransition(self.ui.pushButton_4.clicked, self.save)
+        # for the inner machine loop of <- ->
+        self.quit.addTransition(self.ui.myButtonPrev.clicked, self.run_bck)
+        self.quit.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
+        self.quit.addTransition(self.ui.myButtonNext.clicked, self.run_fwd)
 
         self.run.addTransition(self.ui.pushButton.clicked, self.clear)
         self.run.addTransition(
@@ -144,6 +161,11 @@ class MainWindow(QtGui.QMainWindow):
         self.run.addTransition(self.ui.pushButton_4.clicked, self.save)
         self.run.addTransition(self.ui.pushButton_5.clicked, self.quit)
         self.run.addTransition(self.ui.pushButton_6.clicked, self.about)
+        # for the inner machine loop of <- ->
+        self.run.addTransition(self.ui.myButtonPrev.clicked, self.run_bck)
+        self.run.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
+        self.run.addTransition(self.ui.myButtonNext.clicked, self.run_fwd)
+        
         # Transitions under run
         self.run_init.addTransition(self.ui.myButtonPrev.clicked, self.run_bck)
         self.run_init.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
@@ -156,6 +178,10 @@ class MainWindow(QtGui.QMainWindow):
         self.run_bck.addTransition(self.ui.myButtonPrev.clicked, self.run_bck)
         self.run_bck.addTransition(self.ui.myButtonNext.clicked, self.run_fwd)
         self.run_bck.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
+
+        self.run_fwd.addTransition(self.ui.pushButton_4.clicked, self.save)
+        self.run_bck.addTransition(self.ui.pushButton_4.clicked, self.save)
+        self.run_init.addTransition(self.ui.pushButton_4.clicked, self.save)
 
     def draw_landmarks_in_scene(self):
         """Put the landmarked images in the scene and load a table
