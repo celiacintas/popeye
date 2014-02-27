@@ -287,6 +287,11 @@ class StateSaveLandmarking(QtCore.QState):
             QtGui.QMessageBox.warning(self.window,
                                       "Warning",
                                       "You have to choose a filename for the output")
+        except IndexError, exc:
+            logging.error(exc.message, exc_info=True)
+            QtGui.QMessageBox.warning(self.window,
+                                      "Warning",
+                                      "You don't have any landmarks to save")
 
     def onExit(self, event):
         pass
