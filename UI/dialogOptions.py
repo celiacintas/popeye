@@ -16,7 +16,7 @@ class DialogOptions(QtGui.QDialog):
 
     def initUI(self, numberOfLandmarks):
         pixmap = QtGui.QPixmap(
-            os.path.join(os.path.dirname(__file__), "Images/landmarking.jpg"))
+            os.path.join(os.path.dirname(__file__), "Images/landmarking.png"))
         for i in range(numberOfLandmarks):
             item = QtGui.QListWidgetItem("%i" % i)
             self.ui.listWidget.addItem(item)
