@@ -11,7 +11,7 @@ from popeye.UI.pixmapItem import PixmapItem
 from popeye.UI.dialogOptions import DialogOptions
 from ..finder import Finder
 from popeye.utils.export import SaveFile
-
+from popeye.UI.dialogEdition import DialogEdition
 
 GETPHOTOSNAMES = lambda items: [i.path for i in filter(
     lambda x: isinstance(x, PixmapItem) and x.isVisible(), items)]
@@ -258,7 +258,8 @@ class StateEdit(QtCore.QState):
         self.window = window
 
     def onEntry(self, event):
-        pass
+        edition = DialogEdition(self.window.images[self.window.count], 
+                                self.window.myfinder.landmarks[self.window.count])
 
     def onExit(self, event):
         pass
