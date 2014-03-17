@@ -111,6 +111,8 @@ class MainWindow(QtGui.QMainWindow):
             self.ui.pushButton_5.clicked, self.quit)
         self.landmarking_selection.addTransition(
             self.ui.pushButton_6.clicked, self.about)
+        self.landmarking_selection.addTransition(
+            self.ui.pushButton_4.clicked, self.save)
         # for the inner machine loop of <- ->
         self.landmarking_selection.addTransition(self.ui.myButtonPrev.clicked, self.run_bck)
         self.landmarking_selection.addTransition(self.ui.myButtonEdit.clicked, self.run_edit)
