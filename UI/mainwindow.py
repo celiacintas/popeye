@@ -189,13 +189,13 @@ class MainWindow(QtGui.QMainWindow):
         """Put the landmarked images in the scene and load a table
         with the (nl, x, y)"""
         # TODO remove this fuction .. translate to new state
-        mytable = Table(self.numberOfLandmarks, ['x', 'y'])
-        mylandmarks = self.myfinder.landmarks[self.count]
-        myfilterlandmarks = [mylandmarks[i]
-                             for i in self.numberOfLandmarks]
-        load_model(myfilterlandmarks, mytable)
+        my_table = Table(self.number_of_landmarks, ['x', 'y'])
+        my_landmarks = self.myfinder.landmarks[self.count]
+        my_filter_landmarks = [my_landmarks[i]
+                             for i in self.number_of_landmarks]
+        load_model(my_filter_landmarks, my_table)
         proxytabla = QtGui.QGraphicsProxyWidget()
-        proxytabla.setWidget(mytable)
+        proxytabla.setWidget(my_table)
         proxytabla.setPos(320, 0)
 
         qitmp = toqimage(self.images[self.count])
