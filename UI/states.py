@@ -129,7 +129,7 @@ class StateLanmarkingSelection(QtCore.QState):
             else:
                 options = DialogOptions()
                 if options.ui.listWidget.selectedItems():
-                    self.window.numberOfLandmarks = [int(x.text())
+                    self.window.number_of_landmarks = [int(x.text())
                     for x in options.ui.listWidget.selectedItems()]
 
                     self.window.ui.pushButton_3.setEnabled(True)
@@ -205,7 +205,7 @@ class StateInitRun(QtCore.QState):
             QtGui.QApplication.restoreOverrideCursor()
 
         self.window.images = self.window.myfinder.draw_landmarks(
-            self.window.numberOfLandmarks)
+            self.window.number_of_landmarks)
         self.clear()
         self.window.draw_landmarks_in_scene()
 
@@ -280,7 +280,7 @@ class StateSaveLandmarking(QtCore.QState):
         try:
             mysavefile = SaveFile(
                 self.window.myfinder.filenames, savefilename,
-                self.window.myfinder.landmarks, self.window.numberOfLandmarks)
+                self.window.myfinder.landmarks, self.window.number_of_landmarks)
             mysavefile.save()
         except IOError, exc:
             logging.error(exc.message, exc_info=True)
