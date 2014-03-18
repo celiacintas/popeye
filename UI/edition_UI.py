@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UIFiles/edition.ui'
 #
-# Created: Mon Mar 17 12:12:43 2014
+# Created: Tue Mar 18 13:20:54 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,14 +27,19 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(539, 560)
+        self.horizontalLayout = QtGui.QHBoxLayout(Dialog)
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        self.verticalLayout = QtGui.QVBoxLayout()
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.graphicsView = QtGui.QGraphicsView(Dialog)
+        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
+        self.verticalLayout.addWidget(self.graphicsView)
         self.buttonBox = QtGui.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(190, 520, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.graphicsView = QtGui.QGraphicsView(Dialog)
-        self.graphicsView.setGeometry(QtCore.QRect(40, 0, 461, 511))
-        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
+        self.verticalLayout.addWidget(self.buttonBox)
+        self.horizontalLayout.addLayout(self.verticalLayout)
 
         self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)

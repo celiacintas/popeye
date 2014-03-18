@@ -258,7 +258,7 @@ class StateEdit(QtCore.QState):
         self.window = window
 
     def onEntry(self, event):
-        edition = DialogEdition(self.window.images[self.window.count], 
+        edition = DialogEdition(self.window.myfinder.filenames[self.window.count], 
                                 self.window.myfinder.landmarks[self.window.count])
 
     def onExit(self, event):
