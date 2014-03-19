@@ -57,9 +57,10 @@ class DialogEdition(QtGui.QDialog):
             Landmark(n, pos_landmarks[n][0], pos_landmarks[n][1], 25, 25, scene=self.ui.scene)
     
     def get_new_landmarks(self):
+        """Set the new position of the manual landmarking, passing the points of scene 
+        to real ones.."""
         landmarks = filter(lambda x: isinstance(x, Landmark), self.ui.scene.items())
         new_landmarks = {}
         for l in landmarks:
-            new_landmarks[l.nro_landmark] = [int(l.rect().x()), int(l.rect().y())]
-            print new_landmarks[l.nro_landmark]
+            new_landmarks[l.nro_landmark] = [int(l.rect().x() + l.scenePos().x() ), int(l.rect().y() + l.scenePos().y())]
         return new_landmarks
