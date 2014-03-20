@@ -8,16 +8,9 @@ from popeye.utils.qimage2ndarray import toqimage
 import skimage.io as io
 
 
-class EditionScene(QtGui.QGraphicsScene):
-    def __init__(self, parent=None):
-        super(EditionScene, self).__init__(parent)
-
-    def wheelEvent(self, event):
-        """This one is for zoom"""
-        pass
-
 class Landmark(QtGui.QGraphicsEllipseItem):
-
+    """Black circle with id of landmark location"""
+    
     def __init__(self, nro_landmark, x, y, width=25, height=25, scene=None):
         QtGui.QGraphicsEllipseItem.__init__(self, x, y, width, height, scene=scene)
         self.nro_landmark = nro_landmark
@@ -25,6 +18,7 @@ class Landmark(QtGui.QGraphicsEllipseItem):
         self.setFlags(QtGui.QGraphicsItem.ItemIsMovable)
 
 class DialogEdition(QtGui.QDialog):
+    """Dialog for manual fix of landmark x,y position"""
 
     def __init__(self, image_path, pos_landmarks, number_landmarks, parent=None):
         """pos_landmarks has the (x,y) of the landmarks
@@ -35,8 +29,9 @@ class DialogEdition(QtGui.QDialog):
         self.initUI(image_path, pos_landmarks, number_landmarks)
 
     def initUI(self, image_path, pos_landmarks, number_landmarks):
+        """Create scene and put image and landmarks visible."""
         self.ui.graphicsView.scale(0.3, 0.3)
-        self.ui.scene = EditionScene()
+        self.ui.scene = QtGui.QGraphicsScene()
         self.ui.scene.setSceneRect(QtCore.QRectF())
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)

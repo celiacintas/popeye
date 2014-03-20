@@ -265,8 +265,10 @@ class StateEdit(QtCore.QState):
         for n in self.window.number_of_landmarks:
             self.window.myfinder.landmarks[self.window.count][n] = new_landmarks[n]
 
+        #FIX THIS
+        self.window.images = self.window.myfinder.draw_landmarks(
+            self.window.number_of_landmarks)
         self.window.draw_landmarks_in_scene()
-
 
     def onExit(self, event):
         pass
