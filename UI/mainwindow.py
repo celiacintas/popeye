@@ -200,7 +200,7 @@ class MainWindow(QtGui.QMainWindow):
 
         qitmp = toqimage(self.images[self.count])
         pix = QtGui.QPixmap(QtGui.QPixmap.fromImage(qitmp))
-        PixmapItem(pix.scaledToWidth(310), None, self.ui.scene)
+        QtGui.QGraphicsPixmapItem(pix.scaledToWidth(310), scene=self.ui.scene)
         self.ui.scene.addItem(proxytabla)
 
 def load_model(landmarks, mytable):
