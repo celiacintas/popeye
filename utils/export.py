@@ -39,7 +39,8 @@ class SaveFile(object):
 
     def savecvs(self, out):
         """Save landmarks in cvs (x, y)"""
-        pass
+        # TODO add code name of the ind
+        map(lambda x: np.savetxt(out, x, fmt='%i %i'), self.filterlandmarks)
 
     def savemorphoj(self, out):
         """Save landmarks in txt whit morphoJ format
@@ -79,6 +80,8 @@ class SaveFile(object):
                     self.savetps(out)
                 elif self.ext == ".txt":
                     self.savemorphoj(out)
+                elif self.ext == ".cvs":
+                    self.savecvs(out)
                 else:
                     raise NoExtensionKnowException
                 out.close()
