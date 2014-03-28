@@ -12,7 +12,7 @@ from skimage.draw import circle
 
 
 
-FILENAME = os.path.join(os.path.dirname(__file__), "../Tests/Data/test.jpg")
+FILENAME = os.path.join(os.path.dirname(__file__), "../tests/Data/test.jpg")
 
 
 def main():
