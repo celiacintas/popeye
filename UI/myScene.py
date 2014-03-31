@@ -3,7 +3,6 @@
 
 from PyQt4 import QtGui, QtCore
 
-
 class Scene(QtGui.QGraphicsScene):
 
     def __init__(self, parent=None):
@@ -35,3 +34,4 @@ class Scene(QtGui.QGraphicsScene):
         """" """
         item = self.itemAt(event.scenePos())
         self.sendEvent(item, event)
+
