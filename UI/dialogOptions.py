@@ -70,7 +70,7 @@ class DialogOptions(QtGui.QDialog):
             Landmark(n, STATIC_LANDMARKS[n][0], STATIC_LANDMARKS[n][1], 30, 30, scene=self.ui.scene, flag=QtGui.QGraphicsItem.ItemIsSelectable, text=True)
 
     def get_number_landmarks(self):
-        """Return the number of landmarks select by ctrl + click to be used."""
+        """Return the number of landmarks in ascending order selected by ctrl + click to be used."""
         landmarks = filter(lambda x: isinstance(x, Landmark) and x.isSelected(), self.ui.scene.items())
         clear_landmarks = [l.nro_landmark for l in landmarks]
         clear_landmarks.reverse()
