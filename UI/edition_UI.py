@@ -1,8 +1,10 @@
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
+
 
 # Form implementation generated from reading ui file 'UIFiles/edition.ui'
 #
-# Created: Tue Mar 18 13:20:54 2014
+# Created: Mon Mar 31 14:45:31 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!

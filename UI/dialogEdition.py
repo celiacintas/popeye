@@ -6,16 +6,7 @@ from PyQt4 import QtGui, QtCore, Qt
 from edition_UI import Ui_Dialog
 from popeye.utils.qimage2ndarray import toqimage
 import skimage.io as io
-
-
-class Landmark(QtGui.QGraphicsEllipseItem):
-    """Black circle with id of landmark location"""
-    
-    def __init__(self, nro_landmark, x, y, width=25, height=25, scene=None):
-        QtGui.QGraphicsEllipseItem.__init__(self, x, y, width, height, scene=scene)
-        self.nro_landmark = nro_landmark
-        self.setBrush(QtGui.QColor(0, 0, 0))
-        self.setFlags(QtGui.QGraphicsItem.ItemIsMovable)
+from landmark import Landmark
 
 class DialogEdition(QtGui.QDialog):
     """Dialog for manual fix of landmark x,y position"""
