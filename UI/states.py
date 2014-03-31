@@ -85,6 +85,7 @@ class StateImageLoading(QtCore.QState):
         """Create the finder variable."""
 
         self.window.myfinder = None
+        self.window.items = self.window.ui.scene.items()
 
 
     def draw_little_people(self, fileNames):
@@ -124,13 +125,12 @@ class StateLanmarkingSelection(QtCore.QState):
         """ Dialog for select the anatomic parts to evaluate."""
 
         try:
-            if not GETPHOTOSNAMES(self.window.ui.scene.items()):
+            if not GETPHOTOSNAMES(self.window.items):
                 raise NoImagesException
             else:
                 options = DialogOptions()
-                number_of_landmarks = options.get_number_landmarks()
-                if number_of_landmarks:
-                    self.window.number_of_landmarks = number_of_landmarks
+                self.window.number_of_landmarks = options.get_number_landmarks()
+                if self.window.number_of_landmarks:
                     self.window.ui.pushButton_3.setEnabled(True)
                 else:
                     raise NolandmarksException
@@ -165,7 +165,7 @@ class StateInitRun(QtCore.QState):
 
         try:
             self.window.count = 0
-            photosnames = GETPHOTOSNAMES(self.window.ui.scene.items())
+            photosnames = GETPHOTOSNAMES(self.window.items)
             if not photosnames:
                 raise NoImagesException()
         except NoImagesException, e:

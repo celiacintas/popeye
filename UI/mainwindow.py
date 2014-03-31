@@ -43,6 +43,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.landn = 77
         self.count = None
+        #self.number_of_landmarks = None
         self.create_machine()
 
     def create_special_buttons(self, filename):

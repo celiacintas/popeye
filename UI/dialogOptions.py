@@ -67,7 +67,7 @@ class DialogOptions(QtGui.QDialog):
     def load_landmarks(self, number_landmarks):
         """Set pixmap items in landmarks position and set"""
         for n in number_landmarks:
-            Landmark(n, STATIC_LANDMARKS[n][0], STATIC_LANDMARKS[n][1], 30, 30, scene=self.ui.scene, flag=QtGui.QGraphicsItem.ItemIsSelectable)
+            Landmark(n, STATIC_LANDMARKS[n][0], STATIC_LANDMARKS[n][1], 30, 30, scene=self.ui.scene, flag=QtGui.QGraphicsItem.ItemIsSelectable, text=True)
 
     def get_number_landmarks(self):
         """Return the number of landmarks select by ctrl + click to be used."""
