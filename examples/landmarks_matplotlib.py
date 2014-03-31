@@ -23,6 +23,7 @@ def main():
         radio, center = circle(mylandmarks[i][1], mylandmarks[i][0], 15)
         image[radio, center] = 1
     io.imshow(image)
+    print mylandmarks
     plt.show()
 
 if __name__ == '__main__':
