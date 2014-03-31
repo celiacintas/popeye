@@ -128,10 +128,9 @@ class StateLanmarkingSelection(QtCore.QState):
                 raise NoImagesException
             else:
                 options = DialogOptions()
-                if options.ui.listWidget.selectedItems():
-                    self.window.number_of_landmarks = [int(x.text())
-                    for x in options.ui.listWidget.selectedItems()]
-
+                number_of_landmarks = options.get_number_landmarks()
+                if number_of_landmarks:
+                    self.window.number_of_landmarks = number_of_landmarks
                     self.window.ui.pushButton_3.setEnabled(True)
                 else:
                     raise NolandmarksException

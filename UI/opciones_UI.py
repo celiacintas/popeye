@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'opciones.ui'
+# Form implementation generated from reading ui file 'UIFiles/opciones.ui'
 #
-# Created: Tue Jan 28 12:57:59 2014
+# Created: Mon Mar 31 16:14:40 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,39 +26,19 @@ except AttributeError:
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
-        Dialog.resize(500, 510)
+        Dialog.resize(399, 524)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8("../../../../../.designer/Icons/test.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         Dialog.setWindowIcon(icon)
-        self.widget = QtGui.QWidget(Dialog)
-        self.widget.setGeometry(QtCore.QRect(10, 11, 481, 493))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.formLayout = QtGui.QFormLayout(self.widget)
-        self.formLayout.setMargin(0)
-        self.formLayout.setObjectName(_fromUtf8("formLayout"))
-        self.label = QtGui.QLabel(self.widget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy)
-        self.label.setMinimumSize(QtCore.QSize(300, 452))
-        self.label.setText(_fromUtf8(""))
-        self.label.setObjectName(_fromUtf8("label"))
-        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label)
-        self.listWidget = QtGui.QListWidget(self.widget)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy)
-        self.listWidget.setMinimumSize(QtCore.QSize(123, 0))
-        self.listWidget.setEditTriggers(QtGui.QAbstractItemView.DoubleClicked|QtGui.QAbstractItemView.EditKeyPressed|QtGui.QAbstractItemView.SelectedClicked)
-        self.listWidget.setAlternatingRowColors(True)
-        self.listWidget.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
-        self.listWidget.setObjectName(_fromUtf8("listWidget"))
-        self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.listWidget)
-        self.buttonBox = QtGui.QDialogButtonBox(self.widget)
+        self.verticalLayout_2 = QtGui.QVBoxLayout(Dialog)
+        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
+        self.verticalLayout = QtGui.QVBoxLayout()
+        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.graphicsView = QtGui.QGraphicsView(Dialog)
+        self.graphicsView.setMinimumSize(QtCore.QSize(0, 0))
+        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
+        self.verticalLayout.addWidget(self.graphicsView)
+        self.buttonBox = QtGui.QDialogButtonBox(Dialog)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -70,7 +50,8 @@ class Ui_Dialog(object):
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.formLayout.setWidget(1, QtGui.QFormLayout.SpanningRole, self.buttonBox)
+        self.verticalLayout.addWidget(self.buttonBox)
+        self.verticalLayout_2.addLayout(self.verticalLayout)
 
         self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)
