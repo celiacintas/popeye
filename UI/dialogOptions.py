@@ -72,4 +72,6 @@ class DialogOptions(QtGui.QDialog):
     def get_number_landmarks(self):
         """Return the number of landmarks select by ctrl + click to be used."""
         landmarks = filter(lambda x: isinstance(x, Landmark) and x.isSelected(), self.ui.scene.items())
-        return [l.nro_landmark for l in landmarks]
+        clear_landmarks = [l.nro_landmark for l in landmarks]
+        clear_landmarks.reverse()
+        return clear_landmarks
