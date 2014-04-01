@@ -8,6 +8,7 @@ from landmark import Landmark
 import numpy as np
 import skimage.io as io
 from popeye.utils.qimage2ndarray import toqimage
+from functools import partial
 
 STATIC_LANDMARKS = np.array([[751., 1199.], [767., 1368.], [801., 1518.],
                    [  855.,  1671.], [  962.,  1825.], [ 1107.,  1944.],
@@ -36,6 +37,9 @@ STATIC_LANDMARKS = np.array([[751., 1199.], [767., 1368.], [801., 1518.],
                    [ 1382.,  1708.], [ 1319.,  1738.], [ 1245.,  1749.],
                    [ 1172.,  1741.], [ 1111.,  1714.]])
 
+STATIC_POSITIONS = {'mouth': range(59, 77), 'eyes': range(30, 48),
+                    'eyebrows': range(16, 28), 'nose': range(48, 59)}
+
 class DialogOptions(QtGui.QDialog):
 
     def __init__(self, number_of_landmarks=77, parent=None):
@@ -52,7 +56,11 @@ class DialogOptions(QtGui.QDialog):
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
         #QtGui.QGraphicsPixmapItem(pixmap, scene=self.ui.scene)
-
+        self.ui.pushButton.clicked.connect(lambda : self.select_part('mouth'))
+        self.ui.pushButton_2.clicked.connect(lambda : self.select_part('eyes'))
+        self.ui.pushButton_3.clicked.connect(lambda : self.select_part('eyebrows'))
+        self.ui.pushButton_4.clicked.connect(lambda : self.select_part('nose'))
+      
         self.load_image(os.path.join(os.path.dirname(__file__), 
                         "Images/landmarking_1.jpg"))
         self.load_landmarks(range(number_of_landmarks))
@@ -75,3 +83,9 @@ class DialogOptions(QtGui.QDialog):
         clear_landmarks = [l.nro_landmark for l in landmarks]
         clear_landmarks.reverse()
         return clear_landmarks
+
+    def select_part(self, name_part):
+        """Set as selected all the landmarks in the anatomical chosen part."""
+        landmarks_to_select = STATIC_POSITIONS[name_part]
+        landmarks = filter(lambda x: isinstance(x, Landmark) and x.nro_landmark in landmarks_to_select, self.ui.scene.items())
+        map(lambda x: x.setSelected(True) if x.isSelected() == False else x.setSelected(False), landmarks)
