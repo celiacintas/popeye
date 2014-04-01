@@ -15,9 +15,9 @@ class Landmark(QtGui.QGraphicsEllipseItem):
         	self.add_text(x, y, str(nro_landmark), scene)
 
     def add_text(self, x, y, text, scene):
-    	f = QtGui.QFont("Calibri", pointSize=35)
-    	t = QtGui.QGraphicsTextItem(text, scene=scene)
-    	t.setPos(x + 20, y + 20)
-    	t.setFont(f)
+    	font = QtGui.QFont("Calibri", pointSize=35)
+    	txt = QtGui.QGraphicsTextItem(text, scene=scene)
+    	txt.setPos(x + 20, y + 20)
+    	txt.setFont(font)
 
 
