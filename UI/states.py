@@ -25,7 +25,7 @@ class NoImagesException(Exception):
         Exception.__init__(self, "You must load some images")
 
 
-class NolandmarksException(Exception):
+class NoLandmarksException(Exception):
     """Exception for no images selected"""
 
     def __init__(self):
@@ -133,9 +133,9 @@ class StateLanmarkingSelection(QtCore.QState):
                 if self.window.number_of_landmarks:
                     self.window.ui.pushButton_3.setEnabled(True)
                 else:
-                    raise NolandmarksException
+                    raise NoLandmarksException
 
-        except (NoImagesException, NolandmarksException) as exc:
+        except (NoImagesException, NoLandmarksException) as exc:
             logging.error(exc.message, exc_info=True)
             QtGui.QMessageBox.warning(self.window, "Warning", exc.message)
 
@@ -348,7 +348,7 @@ class StateAbout(QtCore.QState):
 
         text = u"""<font color=black> PopEye is made in Python and C++
         using several libraries such as:
-        numpy, scikit-image, STASM (with ctypes), scikit-learn.
+        numpy, scikit-image, STASM (with ctypes).
         All the develop is made by people of GIBEH, CENPAT-CONICET.<br></font>
         """
         return QtGui.QMessageBox.about(self.window, u"About PopEye", text)
