@@ -6,7 +6,7 @@ the s_search_single fuction of STASM from Python """
 
 import os
 import matplotlib.pyplot as plt
-from ..dependencies import pystasm
+from popeye.dependencies import pystasm
 import skimage.io as io
 from skimage.draw import circle
 
