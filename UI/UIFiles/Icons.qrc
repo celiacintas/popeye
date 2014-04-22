@@ -1,6 +1,10 @@
 <RCC>
   <qresource prefix="/icons">
     <file>../Icons/boton_large1.png</file>
+    <file>../Icons/boca.png</file>
+    <file>../Icons/nariz.png</file>
+    <file>../Icons/ojo.png</file>
+    <file>../Icons/ceja.png</file>
     <file>../Icons/boton_large2.png</file>
     <file>../Icons/boton_large3.png</file>
     <file>../Icons/boton9.png</file>

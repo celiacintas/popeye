@@ -56,9 +56,9 @@ class DialogOptions(QtGui.QDialog):
         self.ui.graphicsView.setScene(self.ui.scene)
         self.ui.graphicsView.setInteractive(True)
         #QtGui.QGraphicsPixmapItem(pixmap, scene=self.ui.scene)
-        self.ui.pushButton.clicked.connect(lambda : self.select_part('mouth'))
+        self.ui.pushButton.clicked.connect(lambda : self.select_part('eyebrows'))
         self.ui.pushButton_2.clicked.connect(lambda : self.select_part('eyes'))
-        self.ui.pushButton_3.clicked.connect(lambda : self.select_part('eyebrows'))
+        self.ui.pushButton_3.clicked.connect(lambda : self.select_part('mouth'))
         self.ui.pushButton_4.clicked.connect(lambda : self.select_part('nose'))
       
         self.load_image(os.path.join(os.path.dirname(__file__), 

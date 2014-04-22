@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'UIFiles/opciones.ui'
 #
-# Created: Tue Apr  1 14:15:02 2014
+# Created: Tue Apr 22 15:20:19 2014
 #      by: PyQt4 UI code generator 4.10.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -34,6 +34,12 @@ class Ui_Dialog(object):
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.gridLayout = QtGui.QGridLayout()
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
+        self.verticalLayout_2 = QtGui.QVBoxLayout()
+        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
+        self.graphicsView = QtGui.QGraphicsView(Dialog)
+        self.graphicsView.setMinimumSize(QtCore.QSize(0, 0))
+        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
+        self.verticalLayout_2.addWidget(self.graphicsView)
         self.buttonBox = QtGui.QDialogButtonBox(Dialog)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -46,28 +52,49 @@ class Ui_Dialog(object):
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.gridLayout.addWidget(self.buttonBox, 2, 0, 1, 1)
-        spacerItem = QtGui.QSpacerItem(20, 68, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout.addItem(spacerItem, 1, 1, 2, 1)
-        self.graphicsView = QtGui.QGraphicsView(Dialog)
-        self.graphicsView.setMinimumSize(QtCore.QSize(0, 0))
-        self.graphicsView.setObjectName(_fromUtf8("graphicsView"))
-        self.gridLayout.addWidget(self.graphicsView, 0, 0, 2, 1)
+        self.verticalLayout_2.addWidget(self.buttonBox)
+        self.gridLayout.addLayout(self.verticalLayout_2, 0, 0, 2, 1)
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.pushButton = QtGui.QPushButton(Dialog)
+        self.pushButton.setText(_fromUtf8(""))
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/Icons/ceja.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton.setIcon(icon1)
+        self.pushButton.setIconSize(QtCore.QSize(64, 64))
+        self.pushButton.setFlat(True)
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.verticalLayout.addWidget(self.pushButton)
         self.pushButton_2 = QtGui.QPushButton(Dialog)
+        self.pushButton_2.setText(_fromUtf8(""))
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/Icons/ojo.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_2.setIcon(icon2)
+        self.pushButton_2.setIconSize(QtCore.QSize(64, 64))
+        self.pushButton_2.setFlat(True)
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.verticalLayout.addWidget(self.pushButton_2)
         self.pushButton_4 = QtGui.QPushButton(Dialog)
+        self.pushButton_4.setText(_fromUtf8(""))
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/Icons/nariz.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_4.setIcon(icon3)
+        self.pushButton_4.setIconSize(QtCore.QSize(64, 64))
+        self.pushButton_4.setFlat(True)
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
         self.verticalLayout.addWidget(self.pushButton_4)
         self.pushButton_3 = QtGui.QPushButton(Dialog)
+        self.pushButton_3.setText(_fromUtf8(""))
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/icons/Icons/boca.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_3.setIcon(icon4)
+        self.pushButton_3.setIconSize(QtCore.QSize(64, 64))
+        self.pushButton_3.setFlat(True)
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.verticalLayout.addWidget(self.pushButton_3)
         self.gridLayout.addLayout(self.verticalLayout, 0, 1, 1, 1)
+        spacerItem = QtGui.QSpacerItem(20, 128, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout.addItem(spacerItem, 1, 1, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(Dialog)
@@ -77,8 +104,5 @@ class Ui_Dialog(object):
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "Landmarks Selection", None))
-        self.pushButton.setText(_translate("Dialog", "Mouth", None))
-        self.pushButton_2.setText(_translate("Dialog", "Eyes", None))
-        self.pushButton_4.setText(_translate("Dialog", "Nose", None))
-        self.pushButton_3.setText(_translate("Dialog", "Eyebrows", None))
 
+import Icons_rc
