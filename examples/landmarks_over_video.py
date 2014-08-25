@@ -52,12 +52,11 @@ def main():
 	        # The next frame is not ready, so we try to read it again
 	        cap.set(cv2.cv.CV_CAP_PROP_POS_FRAMES, pos_frame-1)
 	        print "frame is not ready"
-	        # It is better to wait for a while for the next frame to be ready
 	        cv2.waitKey(1000)
 
 	    if cv2.waitKey(10) == 27:
 	        break
-	        
+
 	    if cap.get(cv2.cv.CV_CAP_PROP_POS_FRAMES) == cap.get(cv2.cv.CV_CAP_PROP_FRAME_COUNT):
 	        break
 	
