@@ -8,7 +8,7 @@ import os
 from PyQt4 import QtCore, QtGui
 from popeye.UI.popEye_UI import Ui_MainWindow
 from popeye.UI.myScene import Scene
-from popeye.UI.table import Table
+from popeye.UI.myTable import Table
 from popeye.UI.myButton import MyButton
 from popeye.UI.pixmapItem import PixmapItem
 from ..utils.qimage2ndarray import toqimage
